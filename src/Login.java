@@ -58,6 +58,7 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Blogin){
             Ventana.setVisible(false);
+            JOptionPane.showMessageDialog(null, "              Bienvenido");
             new Dashboard();
         }
         if (e.getSource() == Bregistrar){

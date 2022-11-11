@@ -9,3 +9,15 @@ COLLATE='utf8mb4_general_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=2
 ;
+
+CREATE TABLE `clientes` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`direccion` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	`telefono` INT(11) NULL DEFAULT NULL,
+	`run` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;

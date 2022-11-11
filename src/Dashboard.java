@@ -20,7 +20,7 @@ public class Dashboard extends JFrame implements ActionListener {
 
 
         // Boton ir atras
-        BirAtras2 = new JButton("Ir Atras");
+        BirAtras2 = new JButton("Salir");
         BirAtras2.setBounds(100,320,100,40);
         BirAtras2.addActionListener(this);
         Ventana3.add(BirAtras2);

@@ -10,6 +10,7 @@ public class Login extends JFrame implements ActionListener {
     JLabel Tusuario, Tpassword;
     JTextField  Txusuario;
     JPasswordField Txpassword;
+    String passwordChar2;
     public Login(){
         // ventana
         Ventana = new JFrame();
@@ -54,12 +55,27 @@ public class Login extends JFrame implements ActionListener {
         Ventana.add(Bregistrar);
     }
 
+    public int ValidacionUsuario(){
+        char [] passwordChar = Txpassword.getPassword();
+        passwordChar2 = new String(passwordChar);
+        if (Main.usuario.equals(Txusuario.getText()) && Main.password.equals(passwordChar2)){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Blogin){
             Ventana.setVisible(false);
-            JOptionPane.showMessageDialog(null, "              Bienvenido");
-            new Dashboard();
+            if (ValidacionUsuario() == 1){
+                JOptionPane.showMessageDialog(null, "              Bienvenido");
+                new Dashboard();
+            }
+            else {
+                JOptionPane.showMessageDialog(null,"Usuario y/o clave incorrecta");
+            }
         }
         if (e.getSource() == Bregistrar){
             Ventana.setVisible(false);

@@ -70,11 +70,12 @@ public class Login extends JFrame implements ActionListener {
         if (e.getSource() == Blogin){
             Ventana.setVisible(false);
             if (ValidacionUsuario() == 1){
-                JOptionPane.showMessageDialog(null, "              Bienvenido");
+                JOptionPane.showMessageDialog(null, "Bienvenido" + " " + Main.usuario);
                 new Dashboard();
             }
-            else {
+            else if(ValidacionUsuario() == 0){
                 JOptionPane.showMessageDialog(null,"Usuario y/o clave incorrecta");
+                new Login();
             }
         }
         if (e.getSource() == Bregistrar){

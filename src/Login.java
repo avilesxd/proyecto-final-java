@@ -11,6 +11,7 @@ public class Login extends JFrame implements ActionListener {
     JTextField  Txusuario;
     JPasswordField Txpassword;
     String passwordChar2;
+    int ID_Frame = 0;
     public Login(){
         // ventana
         Ventana = new JFrame();
@@ -21,9 +22,13 @@ public class Login extends JFrame implements ActionListener {
         Ventana.setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Ventana.setResizable(false);
         Ventana.setVisible(true);
-
-
-
+        Paneles();
+    }
+    public void Paneles(){
+        TXlogin();
+        BtnLogin();
+    }
+    public void TXlogin(){
         // Texto "usuario" y area para ingresarlo
         Tusuario = new JLabel("Usuario");
         Tusuario.setBounds(125,30,100,20);
@@ -40,8 +45,9 @@ public class Login extends JFrame implements ActionListener {
         Txpassword.setBounds(100,120,100,20);
         Ventana.add(Tpassword);
         Ventana.add(Txpassword);
+    }
 
-
+    public void BtnLogin(){
         // Botones
         // Boton Login
         Blogin = new JButton("Login");

@@ -11,6 +11,7 @@ public class Registrar extends JFrame implements ActionListener {
     JLabel Tusuario, Tpassword, Tpassword2;
     JTextField  Txusuario;
     JPasswordField Txpassword, Txpassword2;
+    String passwordddd, passwordddd2;
     public Registrar() {
         // ventana
         Ventana2 = new JFrame();
@@ -71,7 +72,7 @@ public class Registrar extends JFrame implements ActionListener {
         PreparedStatement DB2 = null;
         while (DB != null){
             try {
-                String SQL = "INSERT INTO usuario (nombre,password) VALUES ('"+Txusuario.getText()+"','"+ Txpassword.getPassword()+"')";
+                String SQL = "INSERT INTO usuario (nombre,password) VALUES ('"+Txusuario.getText()+"','"+ passwordddd2+"')";
                 DB2 = DB.prepareStatement(SQL);
                 DB2.executeUpdate();
                 break;
@@ -85,10 +86,10 @@ public class Registrar extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Bregistrar2) {
             char [] passwordChar = Txpassword.getPassword();
-            String passwordddd = new String(passwordChar);
+            passwordddd = new String(passwordChar);
 
             char[] passworddddChar = Txpassword2.getPassword();
-            String passwordddd2 = new String(passworddddChar);
+            passwordddd2 = new String(passworddddChar);
             if (Main.usuario.equals(Txusuario.getText())){
                 JOptionPane.showMessageDialog(null, "El usuario ya existe, Intente nuevamente!");
             } else if (!passwordddd.equals(passwordddd2)){
@@ -96,6 +97,7 @@ public class Registrar extends JFrame implements ActionListener {
 
             } else  {
                 JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+                Coneccion();
                 Ventana2.setVisible(false);
                 new Login();
             }

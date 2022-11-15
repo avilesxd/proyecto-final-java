@@ -22,8 +22,30 @@ public class Registrar extends JFrame implements ActionListener {
         //Ventana2.setResizable(false);
         Ventana2.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Ventana2.setVisible(true);
+        Paneles();
+    }
 
+    public void Coneccion(){
+        Main M = new Main();
+        Connection DB = null;
+        DB = M.Conexion();
+        PreparedStatement DB2 = null;
+        while (DB != null){
+            try {
+                String SQL = "INSERT INTO usuario (nombre,password) VALUES ('"+Txusuario.getText()+"','"+ passwordddd2+"')";
+                DB2 = DB.prepareStatement(SQL);
+                DB2.executeUpdate();
+                break;
+            }catch (Exception e){
 
+            }
+        }
+    }
+    public void Paneles(){
+        TXRegistro();
+        BtnRegistro();
+    }
+    public void TXRegistro(){
         // Texto "usuario" y area para ingresarlo
         Tusuario = new JLabel("Usuario");
         Tusuario.setBounds(125,30,100,20);
@@ -49,8 +71,8 @@ public class Registrar extends JFrame implements ActionListener {
         Txpassword2.setBounds(100,180,100,20);
         Ventana2.add(Tpassword2);
         Ventana2.add(Txpassword2);
-
-
+    }
+    public void BtnRegistro(){
         // Boton Registrar
         Bregistrar2 = new JButton("Registrar");
         Bregistrar2.setBounds(100,270,100,40);
@@ -63,23 +85,6 @@ public class Registrar extends JFrame implements ActionListener {
         BirAtras.setBounds(100,320,100,40);
         BirAtras.addActionListener(this);
         Ventana2.add(BirAtras);
-    }
-
-    public void Coneccion(){
-        Main M = new Main();
-        Connection DB = null;
-        DB = M.Conexion();
-        PreparedStatement DB2 = null;
-        while (DB != null){
-            try {
-                String SQL = "INSERT INTO usuario (nombre,password) VALUES ('"+Txusuario.getText()+"','"+ passwordddd2+"')";
-                DB2 = DB.prepareStatement(SQL);
-                DB2.executeUpdate();
-                break;
-            }catch (Exception e){
-
-            }
-        }
     }
 
     @Override

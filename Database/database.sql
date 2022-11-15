@@ -1,7 +1,11 @@
 /*
-CREATE DATABASE usuarios
+base de datos
+CREATE DATABASE usuarios;
 */
 
+/*
+tablas de la base de datos
+*/
 CREATE TABLE `usuario` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`nombre` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',

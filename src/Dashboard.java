@@ -17,8 +17,12 @@ public class Dashboard extends JFrame implements ActionListener {
         //Ventana3.setResizable(false);
         Ventana3.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Ventana3.setVisible(true);
-
-
+        Paneles();
+    }
+    public void Paneles(){
+        BtnDashboard();
+    }
+    public void BtnDashboard(){
         // Boton ir atras
         BirAtras2 = new JButton("Cerrar sesion");
         BirAtras2.setBounds(100,320,120,40);

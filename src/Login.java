@@ -11,6 +11,7 @@ public class Login extends JFrame implements ActionListener {
     JTextField  Txusuario;
     JPasswordField Txpassword;
     String passwordChar2;
+    int ID_Ventana = 0;
     public Login(){
         // ventana
         Ventana = new JFrame();
@@ -71,6 +72,7 @@ public class Login extends JFrame implements ActionListener {
             Ventana.setVisible(false);
             if (ValidacionUsuario() == 1){
                 JOptionPane.showMessageDialog(null, "Bienvenido" + " " + Main.usuario);
+                ID_Ventana = 1;
                 new Dashboard();
             }
             else if(ValidacionUsuario() == 0){
@@ -80,6 +82,7 @@ public class Login extends JFrame implements ActionListener {
         }
         if (e.getSource() == Bregistrar){
             Ventana.setVisible(false);
+            ID_Ventana = 2;
             new Registrar();
         }
     }

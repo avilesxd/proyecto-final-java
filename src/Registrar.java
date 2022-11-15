@@ -9,6 +9,7 @@ public class Registrar extends JFrame implements ActionListener {
     JLabel Tusuario, Tpassword, Tpassword2;
     JTextField  Txusuario;
     JPasswordField Txpassword, Txpassword2;
+    String passwordChar2, passwordChar4;
     public Registrar() {
         // ventana
         Ventana2 = new JFrame();
@@ -64,6 +65,27 @@ public class Registrar extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == Bregistrar2){
+            char [] passwordChar = Txpassword.getPassword();
+            passwordChar2 = new String(passwordChar);
+            char [] passwordChar3 = Txpassword2.getPassword();
+            passwordChar4 = new String(passwordChar3);
+            try {
+                if (passwordChar2.equals(passwordChar4)){
+                    JOptionPane.showMessageDialog(null,"Verifique su contraseñas!");
+                }else {
+                    if (Main.usuario.equals(Txusuario.getText())){
+                        JOptionPane.showMessageDialog(null,"El usuario ya existe, Intente nuevamente!");
+                    }else {
+                        JOptionPane.showMessageDialog(null,"Usuario registrado correctamente");
+                        Ventana2.setVisible(false);
+                        new Login();
+                    }
+                }
+            }catch (Exception a){
+                System.out.println("Error en el registro");
+            }
+        }
         if (e.getSource() == BirAtras){
             Ventana2.setVisible(false);
             new Login();

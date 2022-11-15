@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Main {
     static String driver = "com.mysql.cj.jdbc.Driver";
@@ -10,6 +7,7 @@ public class Main {
     static String clave = "";
     static String usuario;
     static String password;
+    static Connection DB = null;
 
     public static Connection Conexion(){
         Connection Conexion = null;
@@ -23,29 +21,42 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Login L = new Login();
-        Main M = new Main();
-        Connection DB = M.Conexion();
+         Login L = new Login();
+         Registrar R = new Registrar();
+         Main M = new Main();
+         DB = M.Conexion();
 
-        if (DB != null){
+        /*if (DB != null){
             System.out.println("Exito");
         }
-
+         */
+        PreparedStatement DB2 = null;
         Statement st = null;
         ResultSet rs = null;
 
         while (DB != null){
-            try {
-                String SQL = "SELECT nombre,password FROM usuario WHERE nombre ='" + L.Txusuario.getText() + "'";
-                st = DB.createStatement();
-                rs = st.executeQuery(SQL);
-                if (rs.next()){
-                    usuario = rs.getString("nombre");
-                    password = rs.getString("password");
-                    continue;
+            if (L.ID_Ventana == 0){
+                try {
+                    String SQL = "SELECT nombre,password FROM usuario WHERE nombre ='" + L.Txusuario.getText() + "'";
+                    st = DB.createStatement();
+                    rs = st.executeQuery(SQL);
+                    if (rs.next()){
+                        usuario = rs.getString("nombre");
+                        password = rs.getString("password");
+                        continue;
+                    }
+                } catch (Exception e){
+                    System.out.println("Error en el main");
                 }
-            } catch (Exception e){
-                System.out.println("Error");
+            }else if (L.ID_Ventana == 2){
+                try {
+                    String SQL = "INSERT INTO usuario (nombre,password) VALUES ('"+ R.Txusuario.getText()+"','"+ R.passwordChar4+"')";
+                    DB2 = DB.prepareStatement(SQL);
+                    DB2.executeUpdate();
+                    break;
+                }catch (Exception e){
+
+                }
             }
         }
     }

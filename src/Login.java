@@ -11,7 +11,6 @@ public class Login extends JFrame implements ActionListener {
     JTextField  Txusuario;
     JPasswordField Txpassword;
     String passwordChar2;
-    int ID_Frame = 0;
     public Login(){
         // ventana
         Ventana = new JFrame();

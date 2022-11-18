@@ -19,9 +19,8 @@ public class Main {
         }
         return Conexion;
     }
-
     public static void main(String[] args) {
-        Login L = new Login();
+        Interfaz I = new Interfaz();
         Main M = new Main();
         DB = M.Conexion();
 
@@ -34,7 +33,7 @@ public class Main {
 
         while (DB != null) {
             try {
-                String SQL = "SELECT nombre,password FROM usuario WHERE nombre ='" + L.Txusuario.getText() + "'";
+                String SQL = "SELECT nombre,password FROM usuario WHERE nombre ='" + I.Txusuario.getText() + "'";
                 st = DB.createStatement();
                 rs = st.executeQuery(SQL);
                 if (rs.next()) {
@@ -44,6 +43,12 @@ public class Main {
                 }
             } catch (Exception e) {
                 System.out.println("Error en el main");
+            }finally {
+                try {
+                    Conexion().close();
+                }catch (SQLException e){
+
+                }
             }
         }
     }

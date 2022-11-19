@@ -1,15 +1,37 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ModelUsuario {
+    static String driver = "com.mysql.cj.jdbc.Driver";
+    static String db = "jdbc:mysql://localhost:3306/usuarios";
+    static String nombre = "root";
+    static String clave = "";
+    static String usuario, password;
+    static Connection DB = null;
+
+    public static Connection Conexion(){
+        Connection Conexion = null;
+        try {
+            Class.forName(driver);
+            Conexion = DriverManager.getConnection(db, nombre, clave);
+        } catch (Exception e) {
+            System.out.println("Error con la base de datos");
+        }finally {
+            try {
+                Conexion().close();
+            }catch (SQLException e){
+
+            }
+        }
+        return Conexion;
+    }
+
     public void Insertar(Usuarios usuarios) throws Exception{
         Connection c=null;
         PreparedStatement ps = null;
         String sql = null;
 
         try {
-            c = ConexionDatabase.Conexion();
+            c = Conexion();
             c.setAutoCommit(false);
             sql = "INSERT INTO usuario (nombre,password) VALUES (?,?)";
             ps = c.prepareStatement(sql);
@@ -27,14 +49,18 @@ public class ModelUsuario {
         }
     }
 
-    public static void main(String[] args) {
-        Usuarios u = new Usuarios();
-        ModelUsuario mu  = new ModelUsuario();
-        u.setUsuario("ignacio");
-        u.setPassword("1234");
+    public void Solicitar(Usuarios usuarios) throws Exception{
+        Statement st = null;
+        ResultSet rs = null;
         try {
-            mu.Insertar(u);
-        }catch (Exception e){
+            String SQL = "SELECT nombre,password FROM usuario WHERE nombre ='" + usuarios.getUsuario() + "'";
+            st = DB.createStatement();
+            rs = st.executeQuery(SQL);
+            if (rs.next()) {
+               usuario = rs.getString("nombre");
+               password = rs.getString("password");
+            }
+        } catch (Exception e) {
 
         }
     }

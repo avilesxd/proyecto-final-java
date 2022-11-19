@@ -5,14 +5,14 @@ import java.awt.event.ActionListener;
 public class Interfaz extends JFrame implements ActionListener{
     // Variables
     JFrame Ventana, Ventana2, Ventana3;
-    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, BirAtras2;
+    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, cerrarSesion;
     JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre,direccion,telefono,run;
     JTextField  Txusuario, Txusuario3, nombre2,direccion2,telefono2,run2;
     JPasswordField Txpassword, Txpassword2, Txpassword3;
     String passwordChar2, passwordddd, passwordddd2;
-
+    Usuarios U = new Usuarios();
     public Interfaz(){
-
+        Ventana();
     }
 
     public void Ventana(){
@@ -25,6 +25,7 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana.setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Ventana.setResizable(false);
         Ventana.setVisible(true);
+        Login();
     }
 
     public void Ventana2(){
@@ -36,6 +37,7 @@ public class Interfaz extends JFrame implements ActionListener{
         //Ventana2.setResizable(false);
         Ventana2.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Ventana2.setVisible(true);
+        Registrar();
     }
 
     public void Ventana3(){
@@ -48,6 +50,7 @@ public class Interfaz extends JFrame implements ActionListener{
         //Ventana3.setResizable(false);
         Ventana3.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Ventana3.setVisible(true);
+        Dashboard();
     }
 
     public void Login(){
@@ -143,16 +146,16 @@ public class Interfaz extends JFrame implements ActionListener{
         run2.setBounds(100,130,150,30);
         Ventana3.add(run2);
         // Boton para cerrar la sesion
-        BirAtras2 = new JButton("Cerrar sesion");
-        BirAtras2.setBounds(1100,600,120,40);
-        BirAtras2.addActionListener(this);
-        Ventana3.add(BirAtras2);
+        cerrarSesion = new JButton("Cerrar sesion");
+        cerrarSesion.setBounds(1100,600,120,40);
+        cerrarSesion.addActionListener(this);
+        Ventana3.add(cerrarSesion);
     }
 
     public int ValidacionUsuario(){
         char [] passwordChar = Txpassword.getPassword();
         passwordChar2 = new String(passwordChar);
-        if (Main.usuario.equals(Txusuario.getText()) && Main.password.equals(passwordChar2)){
+        if (U.Validacion()){
             return 1;
         }else {
             return 0;
@@ -163,11 +166,11 @@ public class Interfaz extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Blogin){
             Ventana.setVisible(false);
-            if (ValidacionUsuario() == 1){
-                JOptionPane.showMessageDialog(null, "Bienvenido" + " " + Main.usuario);
+            if (U.Validacion()){
+                JOptionPane.showMessageDialog(null, "Bienvenido" + " " + U.getUsuario());
                 Dashboard();
             }
-            else if(ValidacionUsuario() == 0){
+            else {
                 JOptionPane.showMessageDialog(null,"Usuario y/o clave incorrecta");
                 Login();
             }
@@ -182,7 +185,7 @@ public class Interfaz extends JFrame implements ActionListener{
 
             char[] passworddddChar = Txpassword2.getPassword();
             passwordddd2 = new String(passworddddChar);
-            if (Main.usuario.equals(Txusuario.getText())){
+            if (U.ValidacionUsuarioExistente()){
                 JOptionPane.showMessageDialog(null, "El usuario ya existe, Intente nuevamente!");
             } else if (!passwordddd.equals(passwordddd2)){
                 JOptionPane.showMessageDialog(null, "Verifique su contraseñas!");
@@ -196,7 +199,7 @@ public class Interfaz extends JFrame implements ActionListener{
             Ventana2.setVisible(false);
             Login();
         }
-        if (e.getSource() == BirAtras2){
+        if (e.getSource() == cerrarSesion){
             Ventana3.setVisible(false);
             Login();
         }

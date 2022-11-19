@@ -11,6 +11,10 @@ public class Interfaz extends JFrame implements ActionListener{
     JPasswordField Txpassword, Txpassword2, Txpassword3;
     String passwordChar2, passwordddd, passwordddd2;
 
+    public Interfaz(){
+
+    }
+
     public void Ventana(){
         // Ventana Login
         Ventana = new JFrame();
@@ -21,7 +25,6 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana.setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Ventana.setResizable(false);
         Ventana.setVisible(true);
-        Paneles();
     }
 
     public void Ventana2(){
@@ -45,12 +48,6 @@ public class Interfaz extends JFrame implements ActionListener{
         //Ventana3.setResizable(false);
         Ventana3.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Ventana3.setVisible(true);
-    }
-
-    public void Paneles(){
-        Login();
-        Registrar();
-        Dashboard();
     }
 
     public void Login(){

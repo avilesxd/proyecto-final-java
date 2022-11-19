@@ -9,7 +9,7 @@ public class ModelUsuario {
         String sql = null;
 
         try {
-            c = Main.Conexion();
+            c = ConexionDatabase.Conexion();
             c.setAutoCommit(false);
             sql = "INSERT INTO usuario (nombre,password) VALUES (?,?)";
             ps = c.prepareStatement(sql);

@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Usuarios {
     ModelUsuario MU = new ModelUsuario();
     private String usuario,usuarioInterfaz, password, passwordInterfaz;
@@ -40,6 +42,7 @@ public class Usuarios {
     }
 
     public boolean Validacion(){
+        Interfaz I = new Interfaz();
         if (getUsuarioInterfaz().equals(getUsuario()) && getPasswordInterfaz().equals(getPassword())){
             return true;
         }else {

@@ -91,26 +91,26 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana2.add(Txusuario3);
         // Texto "contraseña" y area para ingresarla
         Tpassword3 = new JLabel("Contraseña");
-        Tpassword3.setBounds(115,100,100,20);
+        Tpassword3.setBounds(115,90,100,20);
         Txpassword3 = new JPasswordField();
-        Txpassword3.setBounds(100,120,100,20);
+        Txpassword3.setBounds(100,110,100,20);
         Ventana2.add(Tpassword3);
         Ventana2.add(Txpassword3);
         // Confirmar contraseña
         Tpassword2 = new JLabel("Repetir contraseña");
-        Tpassword2.setBounds(95,160,120,20);
+        Tpassword2.setBounds(95,150,120,20);
         Txpassword2 = new JPasswordField();
-        Txpassword2.setBounds(100,180,100,20);
+        Txpassword2.setBounds(100,170,100,20);
         Ventana2.add(Tpassword2);
         Ventana2.add(Txpassword2);
         // Boton Registrar
         Bregistrar2 = new JButton("Registrar");
-        Bregistrar2.setBounds(100,270,100,40);
+        Bregistrar2.setBounds(100,230,100,40);
         Bregistrar2.addActionListener(this);
         Ventana2.add(Bregistrar2);
         // Boton ir atras
         BirAtras = new JButton("Ir Atras");
-        BirAtras.setBounds(100,320,100,40);
+        BirAtras.setBounds(100,290,100,40);
         BirAtras.addActionListener(this);
         Ventana2.add(BirAtras);
     }
@@ -168,16 +168,16 @@ public class Interfaz extends JFrame implements ActionListener{
             Ventana.setVisible(false);
             if (U.Validacion()){
                 JOptionPane.showMessageDialog(null, "Bienvenido" + " " + U.getUsuario());
-                Dashboard();
+                Ventana3();
             }
             else {
                 JOptionPane.showMessageDialog(null,"Usuario y/o clave incorrecta");
-                Login();
+                Ventana();
             }
         }
         if (e.getSource() == Bregistrar){
             Ventana.setVisible(false);
-            Registrar();
+            Ventana2();
         }
         if (e.getSource() == Bregistrar2) {
             char [] passwordChar = Txpassword.getPassword();
@@ -192,16 +192,16 @@ public class Interfaz extends JFrame implements ActionListener{
             } else  {
                 JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
                 Ventana2.setVisible(false);
-                Login();
+                Ventana();
             }
         }
         if (e.getSource() == BirAtras){
             Ventana2.setVisible(false);
-            Login();
+            Ventana();
         }
         if (e.getSource() == cerrarSesion){
             Ventana3.setVisible(false);
-            Login();
+            Ventana();
         }
     }
 }

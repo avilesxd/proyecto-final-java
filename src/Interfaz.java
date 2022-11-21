@@ -183,9 +183,9 @@ public class Interfaz extends JFrame implements ActionListener{
             char[] passworddddChar = Txpassword2.getPassword();
             passwordddd2 = new String(passworddddChar);
             try {
-                if (U.ValidacionRegistro()){
+                if (U.ValidacionusuarioExistente()){
                     JOptionPane.showMessageDialog(null, "El usuario ya existe, Intente nuevamente!");
-                } else if (!passwordddd.equals(passwordddd2)){
+                } else if (U.ValidarPasswordRegistro()){
                     JOptionPane.showMessageDialog(null, "Verifique su contraseñas!");
                 } else  {
                     JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");

@@ -50,16 +50,11 @@ public class Usuarios {
             throw new RuntimeException(e);
         }
     }
+    public boolean ValidacionusuarioExistente(){
 
-    public boolean ValidacionRegistro() throws Exception {
-        try {
-            if (/* Falta metodo para verificar el usuario con el que existe en la DB*/){
-                return true;
-            }else {
-                return false;
-            }
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
+    }
+
+    public boolean ValidarPasswordRegistro(){
+        
     }
 }

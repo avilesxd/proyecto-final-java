@@ -9,7 +9,7 @@ public class Interfaz extends JFrame implements ActionListener{
     JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre,direccion,telefono,run;
     JTextField  Txusuario, Txusuario3, nombre2,direccion2,telefono2,run2;
     JPasswordField Txpassword, Txpassword2, Txpassword3;
-    String passwordChar2, passwordddd, passwordddd2;
+    String passwordChar2, passwordddd, passwordddd2, susuTexto;
     Usuarios U = new Usuarios();
     public Interfaz(){
         Ventana();
@@ -58,14 +58,14 @@ public class Interfaz extends JFrame implements ActionListener{
         Tusuario = new JLabel("Usuario");
         Tusuario.setBounds(125,30,100,20);
         Txusuario = new JTextField();
-        Txusuario.setBounds(100,50,100,20);
+        Txusuario.setBounds(100,60,100,20);
         Ventana.add(Tusuario);
         Ventana.add(Txusuario);
         // Texto "contraseña" y area para ingresarla
         Tpassword = new JLabel("Contraseña");
         Tpassword.setBounds(115,100,100,20);
         Txpassword = new JPasswordField();
-        Txpassword.setBounds(100,120,100,20);
+        Txpassword.setBounds(100,130,100,20);
         Ventana.add(Tpassword);
         Ventana.add(Txpassword);
         // Botones
@@ -152,27 +152,25 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana3.add(cerrarSesion);
     }
 
-    public int ValidacionUsuario(){
-        char [] passwordChar = Txpassword.getPassword();
-        passwordChar2 = new String(passwordChar);
-        if (U.Validacion()){
-            return 1;
-        }else {
-            return 0;
-        }
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == Blogin){
             Ventana.setVisible(false);
-            if (U.Validacion()){
-                JOptionPane.showMessageDialog(null, "Bienvenido" + " " + U.getUsuario());
-                Ventana3();
-            }
-            else {
-                JOptionPane.showMessageDialog(null,"Usuario y/o clave incorrecta");
-                Ventana();
+            char [] usuTexto = Txpassword.getPassword();
+            susuTexto = new String(usuTexto);
+            U.setUsuario(Txusuario.getText());
+            U.setPassword(susuTexto);
+            try {
+                if (U.Validacion()){
+                    JOptionPane.showMessageDialog(null, "Bienvenido" + " " + U.getUsuario());
+                    Ventana3();
+                }
+                else {
+                    JOptionPane.showMessageDialog(null,"Usuario y/o clave incorrecta");
+                    Ventana();
+                }
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
         }
         if (e.getSource() == Bregistrar){
@@ -182,17 +180,20 @@ public class Interfaz extends JFrame implements ActionListener{
         if (e.getSource() == Bregistrar2) {
             char [] passwordChar = Txpassword.getPassword();
             passwordddd = new String(passwordChar);
-
             char[] passworddddChar = Txpassword2.getPassword();
             passwordddd2 = new String(passworddddChar);
-            if (U.ValidacionUsuarioExistente()){
-                JOptionPane.showMessageDialog(null, "El usuario ya existe, Intente nuevamente!");
-            } else if (!passwordddd.equals(passwordddd2)){
-                JOptionPane.showMessageDialog(null, "Verifique su contraseñas!");
-            } else  {
-                JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-                Ventana2.setVisible(false);
-                Ventana();
+            try {
+                if (U.ValidacionRegistro()){
+                    JOptionPane.showMessageDialog(null, "El usuario ya existe, Intente nuevamente!");
+                } else if (!passwordddd.equals(passwordddd2)){
+                    JOptionPane.showMessageDialog(null, "Verifique su contraseñas!");
+                } else  {
+                    JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+                    Ventana2.setVisible(false);
+                    Ventana();
+                }
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
         }
         if (e.getSource() == BirAtras){

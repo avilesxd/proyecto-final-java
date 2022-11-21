@@ -1,12 +1,9 @@
-import javax.swing.*;
-
 public class Usuarios {
     ModelUsuario MU = new ModelUsuario();
     private String usuario,usuarioInterfaz, password, passwordInterfaz;
 
     public Usuarios(){
-        setUsuario("admin");
-        setPassword("1234");
+
     }
 
     public String getUsuario() {
@@ -41,20 +38,28 @@ public class Usuarios {
         this.passwordInterfaz = passwordInterfaz;
     }
 
-    public boolean Validacion(){
-        Interfaz I = new Interfaz();
-        if (getUsuarioInterfaz().equals(getUsuario()) && getPasswordInterfaz().equals(getPassword())){
-            return true;
-        }else {
-            return false;
+    public boolean Validacion() throws Exception {
+        try {
+            String[] SUP2 = MU.Solicitar(getUsuario());
+            if (getUsuario().equals(SUP2[0]) && getPassword().equals(SUP2[1])) {
+                return true;
+            }else {
+                return false;
+            }
+        }catch (Exception e){
+            throw new RuntimeException(e);
         }
     }
 
-    public boolean ValidacionUsuarioExistente(){
-        if (getUsuarioInterfaz().equals(getUsuario())){
-            return true;
-        }else {
-            return false;
+    public boolean ValidacionRegistro() throws Exception {
+        try {
+            if (/* Falta metodo para verificar el usuario con el que existe en la DB*/){
+                return true;
+            }else {
+                return false;
+            }
+        }catch (Exception e){
+            throw new RuntimeException(e);
         }
     }
 }

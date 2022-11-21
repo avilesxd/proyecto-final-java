@@ -2,11 +2,9 @@ import java.sql.*;
 
 public class ModelUsuario {
     static String driver = "com.mysql.cj.jdbc.Driver";
-    static String db = "jdbc:mysql://localhost:3306/usuarios";
+    static String db = "jdbc:mysql://localhost:3306/ordenes";
     static String nombre = "root";
     static String clave = "";
-    static String usuario, password;
-    static Connection DB = null;
 
     public static Connection Conexion(){
         Connection Conexion = null;
@@ -16,11 +14,13 @@ public class ModelUsuario {
         } catch (Exception e) {
             System.out.println("Error con la base de datos");
         }finally {
-            try {
-                Conexion().close();
-            }catch (SQLException e){
+           if (Conexion == null){
+               try {
+                   Conexion().close();
+               }catch (SQLException e){
 
-            }
+               }
+           }
         }
         return Conexion;
     }
@@ -33,7 +33,7 @@ public class ModelUsuario {
         try {
             c = Conexion();
             c.setAutoCommit(false);
-            sql = "INSERT INTO usuario (nombre,password) VALUES (?,?)";
+            sql = "INSERT INTO usuarios (usuario,password) VALUES (?,?)";
             ps = c.prepareStatement(sql);
             ps.setString(1,usuarios.getUsuario());
             ps.setString(2,usuarios.getPassword());
@@ -49,19 +49,25 @@ public class ModelUsuario {
         }
     }
 
-    public void Solicitar(Usuarios usuarios) throws Exception{
+    public String[] Solicitar(String usuarios) throws Exception {
+        Connection DB = Conexion();
         Statement st = null;
         ResultSet rs = null;
-        try {
-            String SQL = "SELECT nombre,password FROM usuario WHERE nombre ='" + usuarios.getUsuario() + "'";
-            st = DB.createStatement();
-            rs = st.executeQuery(SQL);
-            if (rs.next()) {
-               usuario = rs.getString("nombre");
-               password = rs.getString("password");
-            }
-        } catch (Exception e) {
+        if (DB != null){
+            try {
+                String SQL = "SELECT usuario,password FROM usuarios WHERE usuario ='" + usuarios + "'";
+                st = DB.createStatement();
+                rs = st.executeQuery(SQL);
+                if (rs.next()) {
+                    String usuario = rs.getString("usuario");
+                    String password = rs.getString("password");
+                    String[] SUP = new String[]{usuario,password};
+                    return SUP;
+                }
+            } catch (Exception e) {
 
+            }
         }
+        return new String[]{""};
     }
 }

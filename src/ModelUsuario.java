@@ -25,7 +25,7 @@ public class ModelUsuario {
         return Conexion;
     }
 
-    public void Insertar(Usuarios usuarios) throws Exception{
+    public void Insertar(String usuario,String password) throws Exception{
         Connection c=null;
         PreparedStatement ps = null;
         String sql = null;
@@ -35,8 +35,8 @@ public class ModelUsuario {
             c.setAutoCommit(false);
             sql = "INSERT INTO usuarios (usuario,password) VALUES (?,?)";
             ps = c.prepareStatement(sql);
-            ps.setString(1,usuarios.getUsuario());
-            ps.setString(2,usuarios.getPassword());
+            ps.setString(1,usuario);
+            ps.setString(2,password);
             ps.executeUpdate();
             c.commit();
             c.close();

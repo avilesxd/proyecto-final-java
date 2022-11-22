@@ -11,8 +11,8 @@ public class Interfaz extends JFrame implements ActionListener{
     JPasswordField Txpassword, Txpassword2, Txpassword3;
     String passwordddd, passwordddd2, susuTexto;
     JMenuBar menuBar;
-    JMenu menu1, menu2, menu3;
-    JMenuItem menuItem21, menuItem22, menuItem31, menuItem32;
+    JMenu menu1, menu2;
+    JMenuItem menuItem21, menuItem22;
     Usuarios U = new Usuarios();
     public Interfaz(){
         Ventana();
@@ -138,11 +138,9 @@ public class Interfaz extends JFrame implements ActionListener{
         // Primer menu
         menu1=new JMenu("Opciones");
         menuBar.add(menu1);
-        // Dos objetos de la clase menu que se asocian al primer Jmenu creado
+        // Objeto de la clase menu que se asocian al primer Jmenu creado
         menu2=new JMenu("Clientes");
         menu1.add(menu2);
-        menu3=new JMenu("Usuarios");
-        menu1.add(menu3);
         // Dos objetos de la clase menu que se asocian al segundo Jmenu
         menuItem21=new JMenuItem("Ingresar Clientes");
         menu2.add(menuItem21);
@@ -150,13 +148,6 @@ public class Interfaz extends JFrame implements ActionListener{
         menuItem22=new JMenuItem("Mostrar Clientes");
         menu2.add(menuItem22);
         menuItem22.addActionListener(this);
-        // Dos  objetos de la calse menu que se asocian al tercer Jmenu
-        menuItem31=new JMenuItem("Ingresar Usuario");
-        menu3.add(menuItem31);
-        menuItem31.addActionListener(this);
-        menuItem32=new JMenuItem("Mostrar Usuarios");
-        menu3.add(menuItem32);
-        menuItem32.addActionListener(this);
         menuBar.setBounds(10,10,66,30);
         Ventana3.add(menuBar);
         // Boton para cerrar la sesion
@@ -221,6 +212,9 @@ public class Interfaz extends JFrame implements ActionListener{
         if (e.getSource() == menuItem21){
             Ventana4();
         }
+        if (e.getSource() == RegistrarCliente){
+            JOptionPane.showMessageDialog(null,"Cliente registrado correctamente");
+        }
         if (e.getSource() == Blogin){
             Ventana.setVisible(false);
             char [] usuTexto = Txpassword.getPassword();
@@ -245,14 +239,16 @@ public class Interfaz extends JFrame implements ActionListener{
             passwordddd = new String(passwordChar);
             char[] passworddddChar = Txpassword2.getPassword();
             passwordddd2 = new String(passworddddChar);
-            U.setPassword(passwordddd);
-            U.setPasswordInterfaz(passwordddd2);
+            U.setUsuario(Txusuario3.getText());
             try {
                 if (U.ValidacionusuarioExistente()){
                     JOptionPane.showMessageDialog(null, "El usuario ya existe, Intente nuevamente!");
-                } else if (U.ValidarPasswordRegistro()){
+                } else if (!passwordddd.equals(passwordddd2)){
                     JOptionPane.showMessageDialog(null, "Verifique su contraseñas!");
                 } else  {
+                    U.setUsuario(Txusuario3.getText());
+                    U.setPassword(passwordddd2);
+                    U.EnviarRegistro();
                     JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
                     Ventana2.setVisible(false);
                     Ventana();

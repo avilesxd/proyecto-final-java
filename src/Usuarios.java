@@ -54,6 +54,7 @@ public class Usuarios {
        try {
            String[] SUP3 = MU.Solicitar(getUsuario());
            if (getUsuario().equals(SUP3[0])){
+               setUsuario(null);
                return true;
            }else {
                return false;
@@ -63,15 +64,7 @@ public class Usuarios {
        }
     }
 
-    public boolean ValidarPasswordRegistro() throws Exception{
-        try {
-            if (getPassword().equals(getPasswordInterfaz())){
-                return true;
-            }else {
-                return false;
-            }
-        }catch (Exception e){
-            throw new Exception(e);
-        }
+    public void EnviarRegistro() throws Exception {
+        MU.Insertar(getUsuario(),getPassword());
     }
 }

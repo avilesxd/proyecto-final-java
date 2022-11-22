@@ -69,6 +69,19 @@ public class Interfaz extends JFrame implements ActionListener{
         RegistrarCliente();
     }
 
+    public void Ventana5(){
+        // ventana
+        Ventana4 = new JFrame();
+        Ventana4.setTitle("Mostrar clientes");
+        Ventana4.setSize(800,600);
+        Ventana4.setLayout(null);
+        Ventana4.setLocationRelativeTo(null);
+        //Ventana4.setResizable(false);
+        //Ventana4.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Ventana4.setVisible(true);
+        MostrarClientes();
+    }
+
     public void Login(){
         // Texto "usuario" y area para ingresarlo
         Tusuario = new JLabel("Usuario");
@@ -138,10 +151,10 @@ public class Interfaz extends JFrame implements ActionListener{
         // Primer menu
         menu1=new JMenu("Opciones");
         menuBar.add(menu1);
-        // Objeto de la clase menu que se asocian al primer Jmenu creado
+        // Objetos de la clase menu que se asocian al primer Jmenu creado
         menu2=new JMenu("Clientes");
         menu1.add(menu2);
-        // Dos objetos de la clase menu que se asocian al segundo Jmenu
+        // Objetos de la clase menu que se asocian al segundo Jmenu
         menuItem21=new JMenuItem("Ingresar Clientes");
         menu2.add(menuItem21);
         menuItem21.addActionListener(this);
@@ -194,6 +207,10 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana4.add(RegistrarCliente);
     }
 
+    public void MostrarClientes(){
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == BirAtras){
@@ -211,6 +228,9 @@ public class Interfaz extends JFrame implements ActionListener{
         }
         if (e.getSource() == menuItem21){
             Ventana4();
+        }
+        if (e.getSource() == menuItem22){
+            Ventana5();
         }
         if (e.getSource() == RegistrarCliente){
             JOptionPane.showMessageDialog(null,"Cliente registrado correctamente");

@@ -50,11 +50,28 @@ public class Usuarios {
             throw new RuntimeException(e);
         }
     }
-    public boolean ValidacionusuarioExistente(){
-
+    public boolean ValidacionusuarioExistente()throws Exception {
+       try {
+           String[] SUP3 = MU.Solicitar(getUsuario());
+           if (getUsuario().equals(SUP3[0])){
+               return true;
+           }else {
+               return false;
+           }
+       }catch (Exception e){
+           throw new Exception(e);
+       }
     }
 
-    public boolean ValidarPasswordRegistro(){
-        
+    public boolean ValidarPasswordRegistro() throws Exception{
+        try {
+            if (getPassword().equals(getPasswordInterfaz())){
+                return true;
+            }else {
+                return false;
+            }
+        }catch (Exception e){
+            throw new Exception(e);
+        }
     }
 }

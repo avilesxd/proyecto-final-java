@@ -226,6 +226,6 @@ CREATE TABLE `usuarios` (
 
 -- ----------------------------
 
-INSERT INTO `usuarios` VALUES ('1', 'admin', '1234', '2022-11-15 14:06:00');
+INSERT INTO `usuarios` VALUES ('1', 'admin', 'admin', '2022-11-15 14:06:00');
 
 SET FOREIGN_KEY_CHECKS=1;

@@ -4,12 +4,15 @@ import java.awt.event.ActionListener;
 
 public class Interfaz extends JFrame implements ActionListener{
     // Variables
-    JFrame Ventana, Ventana2, Ventana3;
-    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, cerrarSesion;
-    JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre,direccion,telefono,run;
-    JTextField  Txusuario, Txusuario3, nombre2,direccion2,telefono2,run2;
+    JFrame Ventana, Ventana2, Ventana3, Ventana4;
+    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, cerrarSesion, RegistrarCliente;
+    JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre, direccion, telefono, run;
+    JTextField  Txusuario, Txusuario3, nombre2, direccion2, telefono2, run2;
     JPasswordField Txpassword, Txpassword2, Txpassword3;
-    String passwordChar2, passwordddd, passwordddd2, susuTexto;
+    String passwordddd, passwordddd2, susuTexto;
+    JMenuBar menuBar;
+    JMenu menu1, menu2, menu3;
+    JMenuItem menuItem21, menuItem22, menuItem31, menuItem32;
     Usuarios U = new Usuarios();
     public Interfaz(){
         Ventana();
@@ -51,6 +54,19 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana3.setDefaultCloseOperation(EXIT_ON_CLOSE);
         Ventana3.setVisible(true);
         Dashboard();
+    }
+
+    public void Ventana4(){
+        // ventana
+        Ventana4 = new JFrame();
+        Ventana4.setTitle("Registrar cliente");
+        Ventana4.setSize(300,300);
+        Ventana4.setLayout(null);
+        Ventana4.setLocationRelativeTo(null);
+        //Ventana4.setResizable(false);
+        //Ventana4.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Ventana4.setVisible(true);
+        RegistrarCliente();
     }
 
     public void Login(){
@@ -116,35 +132,33 @@ public class Interfaz extends JFrame implements ActionListener{
     }
 
     public void Dashboard(){
-        // Ingresar los datos para los usuarios
-        // Nombre
-        nombre = new JLabel("Nombre");
-        nombre.setBounds(10,10,100,30);
-        Ventana3.add(nombre);
-        nombre2 = new JTextField();
-        nombre2.setBounds(100,10,150,30);
-        Ventana3.add(nombre2);
-        // Direccion
-        direccion = new JLabel("Direccion");
-        direccion.setBounds(10,50,100,30);
-        Ventana3.add(direccion);
-        direccion2 = new JTextField();
-        direccion2.setBounds(100,50,150,30);
-        Ventana3.add(direccion2);
-        // Telefono
-        telefono = new JLabel("Telefono");
-        telefono.setBounds(10,90,150,30);
-        Ventana3.add(telefono);
-        telefono2 = new JTextField();
-        telefono2.setBounds(100,90,150,30);
-        Ventana3.add(telefono2);
-        // Run
-        run = new JLabel("Run");
-        run.setBounds(10,130,150,30);
-        Ventana3.add(run);
-        run2 = new JTextField();
-        run2.setBounds(100,130,150,30);
-        Ventana3.add(run2);
+        // Menu
+        menuBar=new JMenuBar();
+        setJMenuBar(menuBar);
+        // Primer menu
+        menu1=new JMenu("Opciones");
+        menuBar.add(menu1);
+        // Dos objetos de la clase menu que se asocian al primer Jmenu creado
+        menu2=new JMenu("Clientes");
+        menu1.add(menu2);
+        menu3=new JMenu("Usuarios");
+        menu1.add(menu3);
+        // Dos objetos de la clase menu que se asocian al segundo Jmenu
+        menuItem21=new JMenuItem("Ingresar Clientes");
+        menu2.add(menuItem21);
+        menuItem21.addActionListener(this);
+        menuItem22=new JMenuItem("Mostrar Clientes");
+        menu2.add(menuItem22);
+        menuItem22.addActionListener(this);
+        // Dos  objetos de la calse menu que se asocian al tercer Jmenu
+        menuItem31=new JMenuItem("Ingresar Usuario");
+        menu3.add(menuItem31);
+        menuItem31.addActionListener(this);
+        menuItem32=new JMenuItem("Mostrar Usuarios");
+        menu3.add(menuItem32);
+        menuItem32.addActionListener(this);
+        menuBar.setBounds(10,10,66,30);
+        Ventana3.add(menuBar);
         // Boton para cerrar la sesion
         cerrarSesion = new JButton("Cerrar sesion");
         cerrarSesion.setBounds(1100,600,120,40);
@@ -152,8 +166,61 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana3.add(cerrarSesion);
     }
 
+    public void RegistrarCliente(){
+        // Ingresar los datos para los usuarios
+        // Nombre
+        nombre = new JLabel("Nombre");
+        nombre.setBounds(10,10,100,30);
+        Ventana4.add(nombre);
+        nombre2 = new JTextField();
+        nombre2.setBounds(100,10,150,30);
+        Ventana4.add(nombre2);
+        // Direccion
+        direccion = new JLabel("Direccion");
+        direccion.setBounds(10,50,100,30);
+        Ventana4.add(direccion);
+        direccion2 = new JTextField();
+        direccion2.setBounds(100,50,150,30);
+        Ventana4.add(direccion2);
+        // Telefono
+        telefono = new JLabel("Telefono");
+        telefono.setBounds(10,90,150,30);
+        Ventana4.add(telefono);
+        telefono2 = new JTextField();
+        telefono2.setBounds(100,90,150,30);
+        Ventana4.add(telefono2);
+        // Run
+        run = new JLabel("Run");
+        run.setBounds(10,130,150,30);
+        Ventana4.add(run);
+        run2 = new JTextField();
+        run2.setBounds(100,130,150,30);
+        Ventana4.add(run2);
+        // Boton para registrar al cliente
+        RegistrarCliente = new JButton("Registrar");
+        RegistrarCliente.setBounds(115,170,120,40);
+        RegistrarCliente.addActionListener(this);
+        Ventana4.add(RegistrarCliente);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == BirAtras){
+            Ventana2.setVisible(false);
+            Ventana();
+        }
+        if (e.getSource() == cerrarSesion){
+            Ventana3.setVisible(false);
+            Ventana4.setVisible(false);
+            Ventana();
+        }
+        if (e.getSource() == Bregistrar){
+            Ventana.setVisible(false);
+            Ventana2();
+        }
+        if (e.getSource() == menuItem21){
+            Ventana4();
+        }
         if (e.getSource() == Blogin){
             Ventana.setVisible(false);
             char [] usuTexto = Txpassword.getPassword();
@@ -173,15 +240,13 @@ public class Interfaz extends JFrame implements ActionListener{
                 throw new RuntimeException(ex);
             }
         }
-        if (e.getSource() == Bregistrar){
-            Ventana.setVisible(false);
-            Ventana2();
-        }
         if (e.getSource() == Bregistrar2) {
-            char [] passwordChar = Txpassword.getPassword();
+            char [] passwordChar = Txpassword3.getPassword();
             passwordddd = new String(passwordChar);
             char[] passworddddChar = Txpassword2.getPassword();
             passwordddd2 = new String(passworddddChar);
+            U.setPassword(passwordddd);
+            U.setPasswordInterfaz(passwordddd2);
             try {
                 if (U.ValidacionusuarioExistente()){
                     JOptionPane.showMessageDialog(null, "El usuario ya existe, Intente nuevamente!");
@@ -196,13 +261,8 @@ public class Interfaz extends JFrame implements ActionListener{
                 throw new RuntimeException(ex);
             }
         }
-        if (e.getSource() == BirAtras){
-            Ventana2.setVisible(false);
-            Ventana();
-        }
-        if (e.getSource() == cerrarSesion){
-            Ventana3.setVisible(false);
-            Ventana();
+        if (e.getSource() == RegistrarCliente){
+            Ventana4.setVisible(false);
         }
     }
 }

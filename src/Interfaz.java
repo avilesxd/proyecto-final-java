@@ -70,16 +70,7 @@ public class Interfaz extends JFrame implements ActionListener{
     }
 
     public void Ventana5(){
-        // ventana
-        Ventana4 = new JFrame();
-        Ventana4.setTitle("Mostrar clientes");
-        Ventana4.setSize(800,600);
-        Ventana4.setLayout(null);
-        Ventana4.setLocationRelativeTo(null);
-        //Ventana4.setResizable(false);
-        //Ventana4.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        Ventana4.setVisible(true);
-        MostrarClientes();
+        new MostrarClientes();
     }
 
     public void Ventana6(){
@@ -96,16 +87,7 @@ public class Interfaz extends JFrame implements ActionListener{
     }
 
     public void Ventana7(){
-        // ventana
-        Ventana7 = new JFrame();
-        Ventana7.setTitle("Mostrar productos");
-        Ventana7.setSize(600,600);
-        Ventana7.setLayout(null);
-        Ventana7.setLocationRelativeTo(null);
-        //Ventana7.setResizable(false);
-        //Ventana7.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        Ventana7.setVisible(true);
-
+        new MostrarProductos();
     }
 
     public void Login(){
@@ -247,11 +229,32 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana4.add(BotonCancelarRegistro);
     }
 
-    public void MostrarClientes(){
+    public void AgregarProductos(){
 
     }
 
-    public void AgregarProductos(){
+    public static class MostrarClientes{
+        JFrame Ventana52;
+        JTable tabla;
+        MostrarClientes(){
+            Ventana52 = new JFrame();
+            Ventana52.setTitle("Clientes Registrados");
+            String[][] datos = {
+                    // traer a los clientes registrados desde la base de datos
+            };
+            String[] NombreColumnas = {"Id","Nombre","Telefono","Direccion","Run"};
+            tabla = new JTable(datos, NombreColumnas);
+            tabla.setBounds(30, 40, 200, 300);
+            JScrollPane sp = new JScrollPane(tabla);
+            tabla.setEnabled(false);
+            Ventana52.add(sp);
+            Ventana52.setResizable(false);
+            Ventana52.setSize(500, 200);
+            Ventana52.setVisible(true);
+        }
+    }
+
+    public static class MostrarProductos{
 
     }
 

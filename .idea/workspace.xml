@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0249b6e4-78a7-4d5f-ace0-b8e18d9785f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PautaEvaluacion/unidad 3- proyecto.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interfaz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interfaz.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +46,11 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\inico\IdeaProjects\proyecto-final-java\PautaEvaluacion" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Run Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />

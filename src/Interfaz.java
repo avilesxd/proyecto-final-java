@@ -240,7 +240,7 @@ public class Interfaz extends JFrame implements ActionListener{
             Ventana52 = new JFrame();
             Ventana52.setTitle("Clientes Registrados");
             String[][] datos = {
-                    // traer a los clientes registrados desde la base de datos
+                    // Traer a los clientes registrados desde la base de datos
             };
             String[] NombreColumnas = {"Id","Nombre","Telefono","Direccion","Run"};
             tabla = new JTable(datos, NombreColumnas);
@@ -255,7 +255,24 @@ public class Interfaz extends JFrame implements ActionListener{
     }
 
     public static class MostrarProductos{
-
+        JFrame Ventana72;
+        JTable tabla2;
+        MostrarProductos(){
+            Ventana72 = new JFrame();
+            Ventana72.setTitle("Clientes Registrados");
+            String[][] datos = {
+                    // Traer todos los productos registrados desde la base de datos
+            };
+            String[] NombreColumnas = {"Id","Nombre","Precio","Stock"};
+            tabla2 = new JTable(datos, NombreColumnas);
+            tabla2.setBounds(30, 40, 200, 300);
+            JScrollPane sp = new JScrollPane(tabla2);
+            tabla2.setEnabled(false);
+            Ventana72.add(sp);
+            Ventana72.setResizable(false);
+            Ventana72.setSize(500, 200);
+            Ventana72.setVisible(true);
+        }
     }
 
     @Override
@@ -281,6 +298,9 @@ public class Interfaz extends JFrame implements ActionListener{
         }
         if (e.getSource() == menuItem31){
             Ventana6();
+        }
+        if (e.getSource() == menuItem32){
+            Ventana7();
         }
         if (e.getSource() == BotonCancelarRegistro){
             Ventana4.setVisible(false);

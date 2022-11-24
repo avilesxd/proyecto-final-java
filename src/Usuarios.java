@@ -60,11 +60,19 @@ public class Usuarios {
                return false;
            }
        }catch (Exception e){
-           throw new Exception(e);
+           throw new RuntimeException(e);
        }
     }
 
     public void EnviarRegistro() throws Exception {
         MU.Insertar(getUsuario(),getPassword());
+    }
+
+    public void ListarClientes() throws Exception {
+        try {
+
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }

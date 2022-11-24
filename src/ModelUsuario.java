@@ -70,4 +70,29 @@ public class ModelUsuario {
         }
         return new String[]{""};
     }
+
+    public String[] MostrarClientes(String id, String nombre, int telefono, String direccion, String run) throws Exception {
+        Connection DB2 = Conexion();
+        Statement st = null;
+        ResultSet rs = null;
+        if (DB2 != null){
+         try {
+             String SQL2 = "SELECT * FROM clientes";
+             st = DB2.createStatement();
+             rs = st.executeQuery(SQL2);
+             if (rs.next()){
+                 String id2 = rs.getString("id");
+                 String nombre2 = rs.getString("nombre");
+                 String telefono2 = rs.getString("telefono");
+                 String direccion2 = rs.getString("direccion");
+                 String run2 = rs.getString("run");
+                 String[] SUP2 = new String[]{id2,nombre2,telefono2,direccion2,run2};
+                 return SUP2;
+             }
+         }catch (Exception e){
+
+         }
+        }
+        return new String[]{""};
+    }
 }

@@ -1,6 +1,8 @@
+import java.sql.SQLException;
+
 public class Usuarios {
     ModelUsuario MU = new ModelUsuario();
-    private String usuario,usuarioInterfaz, password, passwordInterfaz;
+    private String usuario,usuarioInterfaz, password, passwordInterfaz, nombre, telefono, direccion, run;
 
     public Usuarios(){
 
@@ -38,6 +40,38 @@ public class Usuarios {
         this.passwordInterfaz = passwordInterfaz;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getRun() {
+        return run;
+    }
+
+    public void setRun(String run) {
+        this.run = run;
+    }
+
     public boolean Validacion() throws Exception {
         try {
             String[] SUP2 = MU.Solicitar(getUsuario());
@@ -50,7 +84,7 @@ public class Usuarios {
             throw new RuntimeException(e);
         }
     }
-    public boolean ValidacionusuarioExistente()throws Exception {
+    public boolean ValidacionusuarioExistente() throws Exception {
        try {
            String[] SUP3 = MU.Solicitar(getUsuario());
            if (getUsuario().equals(SUP3[0])){
@@ -68,10 +102,18 @@ public class Usuarios {
         MU.Insertar(getUsuario(),getPassword());
     }
 
-    public void ListarClientes() throws Exception {
+    public void ListarClientes() {
         try {
-
+            MU.MostrarClientes();
         }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void EnviarRegistroClientes()  {
+        try {
+            MU.RegistroClientes(getNombre(),getTelefono(),getDireccion(),getRun());
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

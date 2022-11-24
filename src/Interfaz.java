@@ -315,7 +315,10 @@ public class Interfaz extends JFrame implements ActionListener{
             U.setUsuario(Txusuario.getText());
             U.setPassword(susuTexto);
             try {
-                if (U.Validacion()){
+                if (Txusuario.getText().isEmpty() || susuTexto.isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Error, tiene que ingresar un usuario y una clave");
+                    Ventana();
+                } else if (U.Validacion()){
                     JOptionPane.showMessageDialog(null, "Bienvenido" + " " + U.getUsuario());
                     Ventana3();
                 }
@@ -352,6 +355,7 @@ public class Interfaz extends JFrame implements ActionListener{
         }
         if (e.getSource() == RegistrarCliente){
             Ventana4.setVisible(false);
+            U.EnviarRegistroClientes();
         }
     }
 }

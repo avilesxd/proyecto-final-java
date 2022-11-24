@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Arrays;
 
 public class ModelUsuario {
     static String driver = "com.mysql.cj.jdbc.Driver";
@@ -49,6 +50,32 @@ public class ModelUsuario {
         }
     }
 
+    public void RegistroClientes(String nombre,String direccion, String telefono, String run) throws SQLException {
+        Connection c=null;
+        PreparedStatement ps = null;
+        String sql = null;
+
+        try {
+            c = Conexion();
+            c.setAutoCommit(false);
+            sql = "INSERT INTO clientes (nombre, direccion, telefono, run) VALUES (?,?,?,?)";
+            ps = c.prepareStatement(sql);
+            ps.setString(1,nombre);
+            ps.setInt(2, Integer.parseInt(telefono));
+            ps.setString(3,direccion);
+            ps.setString(4,run);
+            ps.executeUpdate();
+            c.commit();
+            c.close();
+        }catch (Exception e){
+            try {
+                c.rollback();
+            }catch (SQLException ex){
+                throw e;
+            }
+        }
+    }
+
     public String[] Solicitar(String usuarios) throws Exception {
         Connection DB = Conexion();
         Statement st = null;
@@ -71,22 +98,23 @@ public class ModelUsuario {
         return new String[]{""};
     }
 
-    public String[] MostrarClientes(String id, String nombre, int telefono, String direccion, String run) throws Exception {
+    public Object[] MostrarClientes() throws Exception {
+        //pendiente
         Connection DB2 = Conexion();
         Statement st = null;
         ResultSet rs = null;
         if (DB2 != null){
          try {
-             String SQL2 = "SELECT * FROM clientes";
+             String SQL2 = "SELECT id,nombre,telefono,direccion,run FROM clientes";
              st = DB2.createStatement();
              rs = st.executeQuery(SQL2);
              if (rs.next()){
-                 String id2 = rs.getString("id");
-                 String nombre2 = rs.getString("nombre");
-                 String telefono2 = rs.getString("telefono");
-                 String direccion2 = rs.getString("direccion");
-                 String run2 = rs.getString("run");
-                 String[] SUP2 = new String[]{id2,nombre2,telefono2,direccion2,run2};
+                 String id = rs.getString("id");
+                 String nombre = rs.getString("nombre");
+                 String telefono = rs.getString("telefono");
+                 String direccion = rs.getString("direccion");
+                 String run = rs.getString("run");
+                 String[] SUP2 = new String[]{id,nombre,telefono,direccion,run};
                  return SUP2;
              }
          }catch (Exception e){

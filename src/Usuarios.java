@@ -2,7 +2,7 @@ import java.sql.SQLException;
 
 public class Usuarios {
     ModelUsuario MU = new ModelUsuario();
-    private String usuario,usuarioInterfaz, password, passwordInterfaz, nombre, telefono, direccion, run;
+    private String usuario,usuarioInterfaz, password, passwordInterfaz, nombre, telefono, direccion, run, nombreProducto, precioProducto, numeroStock;
 
     public Usuarios(){
 
@@ -70,6 +70,30 @@ public class Usuarios {
 
     public void setRun(String run) {
         this.run = run;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public String getPrecioProducto() {
+        return precioProducto;
+    }
+
+    public void setPrecioProducto(String precioProducto) {
+        this.precioProducto = precioProducto;
+    }
+
+    public String getNumeroStock() {
+        return numeroStock;
+    }
+
+    public void setNumeroStock(String numeroStock) {
+        this.numeroStock = numeroStock;
     }
 
     public boolean Validacion() throws Exception {
@@ -176,5 +200,9 @@ public class Usuarios {
 
     public void EnviarRegistroClientes() throws SQLException {
         MU.RegistroClientes(getNombre(), getTelefono(), getDireccion(), getRun());
+    }
+
+    public void EnviarRegistroProductos() throws SQLException {
+        MU.RegistroProductos(getNombreProducto(), getPrecioProducto(), getNumeroStock());
     }
 }

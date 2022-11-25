@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Interfaz extends JFrame implements ActionListener{
     // Variables
@@ -91,14 +92,14 @@ public class Interfaz extends JFrame implements ActionListener{
     }
 
     public void Login(){
-        // Texto "usuario" y area para ingresarlo
+        // Texto "usuario" y área para ingresarlo
         Tusuario = new JLabel("Usuario");
         Tusuario.setBounds(125,30,100,20);
         Txusuario = new JTextField();
         Txusuario.setBounds(100,60,100,20);
         Ventana.add(Tusuario);
         Ventana.add(Txusuario);
-        // Texto "contraseña" y area para ingresarla
+        // Texto "contraseña" y área para ingresarla
         Tpassword = new JLabel("Contraseña");
         Tpassword.setBounds(115,100,100,20);
         Txpassword = new JPasswordField();
@@ -119,14 +120,14 @@ public class Interfaz extends JFrame implements ActionListener{
     }
 
     public void Registrar(){
-        // Texto "usuario" y area para ingresarlo
+        // Texto "usuario" y área para ingresarlo
         Tusuario2 = new JLabel("Usuario");
         Tusuario2.setBounds(125,30,100,20);
         Txusuario3 = new JTextField();
         Txusuario3.setBounds(100,50,100,20);
         Ventana2.add(Tusuario2);
         Ventana2.add(Txusuario3);
-        // Texto "contraseña" y area para ingresarla
+        // Texto "contraseña" y área para ingresarla
         Tpassword3 = new JLabel("Contraseña");
         Tpassword3.setBounds(115,90,100,20);
         Txpassword3 = new JPasswordField();
@@ -408,7 +409,16 @@ public class Interfaz extends JFrame implements ActionListener{
             }
         }
         if (e.getSource() == RegistrarProducto){
-
+           U.setNombreProducto(nombreProducto2.getText());
+           U.setPrecioProducto(precioProducto2.getText());
+           U.setNumeroStock(numeroStock2.getText());
+            try {
+                Ventana6.setVisible(false);
+                JOptionPane.showMessageDialog(null,"Producto agregado correctamente");
+                U.EnviarRegistroProductos();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }

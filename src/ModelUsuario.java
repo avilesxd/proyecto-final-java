@@ -49,7 +49,7 @@ public class ModelUsuario {
         }
     }
 
-    public void IngresarProductos(String nombre, int precio, int stock){
+    public void RegistroProductos(String nombre, String precio, String stock){
         Connection c=null;
         PreparedStatement ps = null;
         String sql = null;
@@ -57,7 +57,7 @@ public class ModelUsuario {
         try {
             c = Conexion();
             c.setAutoCommit(false);
-            sql = "INSERT INTO usuarios (usuario,password) VALUES ('"+nombre+"',"+precio+",'"+stock+"')";
+            sql = "INSERT INTO productos_base (nombre,precio,stock) VALUES ('"+nombre+"',"+precio+",'"+stock+"')";
             ps = c.prepareStatement(sql);
             ps.executeUpdate();
             c.commit();

@@ -223,4 +223,8 @@ public class Usuarios {
     public void BuscarCliente(DefaultTableModel f){
         f.addRow(MU.BuscarCliente(getNombre()));
     }
+
+    public void BuscarProducto(DefaultTableModel g){
+        g.addRow(MU.BuscarProducto(getNombreProducto()));
+    }
 }

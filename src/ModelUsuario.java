@@ -201,4 +201,27 @@ public class ModelUsuario {
         }
         return new Object[]{""};
     }
+
+    public Object[] BuscarProducto(String ppp){
+        Connection DB = Conexion();
+        Statement st = null;
+        ResultSet rs = null;
+        if (DB != null) {
+            try {
+                String SQL = "SELECT * FROM productos_base WHERE nombre='" + ppp + "'";
+                st = DB.createStatement();
+                rs = st.executeQuery(SQL);
+                if (rs.next()) {
+                    String id = rs.getString("id");
+                    String nombre = rs.getString("nombre");
+                    int precio = rs.getInt("precio");
+                    Object[] allDataProducto = {id,nombre,precio};
+                    return allDataProducto;
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return new Object[]{""};
+    }
 }

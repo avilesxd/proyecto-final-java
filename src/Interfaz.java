@@ -310,10 +310,12 @@ public class Interfaz extends JFrame implements ActionListener{
         }
     }
 
-    public static class MostrarProductos{
+    public static class MostrarProductos implements ActionListener{
         Usuarios u = new Usuarios();
         JFrame Ventana72;
         JTable tabla2;
+        JTextField BuscarProducto;
+        JButton BuscarProducto2;
         DefaultTableModel dtm;
         MostrarProductos(){
             Ventana72 = new JFrame();
@@ -324,11 +326,30 @@ public class Interfaz extends JFrame implements ActionListener{
             tabla2 = new JTable(dtm);
             JScrollPane sp = new JScrollPane(tabla2);
             tabla2.setPreferredScrollableViewportSize(new Dimension(500,200));
+            BuscarProducto = new JTextField();
+            BuscarProducto.setBounds(10,290,150,30);
+            BuscarProducto2 = new JButton("Buscar producto");
+            BuscarProducto2.setBounds(190,290,150,30);
+            BuscarProducto2.addActionListener(this);
+            Ventana72.add(BuscarProducto);
+            Ventana72.add(BuscarProducto2);
             tabla2.setEnabled(false);
             Ventana72.add(sp);
             Ventana72.setResizable(false);
             Ventana72.setSize(800, 400);
             Ventana72.setVisible(true);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == BuscarProducto2){
+                if (BuscarProducto.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Debe ingresar un producto");
+                } else {
+                    U.setNombreProducto(BuscarProducto.getText());
+                    U.BuscarProducto(dtm);
+                }
+            }
         }
     }
 
@@ -374,7 +395,9 @@ public class Interfaz extends JFrame implements ActionListener{
             U.setDireccion(direccion2.getText());
             U.setRun(run2.getText());
             try {
-                if (U.ValidarRegistroClientes() == 1){
+                if (nombre2.getText().isEmpty() || telefono2.getText().isEmpty() || direccion2.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"LLene todo los campos antes de continuar");
+                } else if (U.ValidarRegistroClientes() == 1){
                     JOptionPane.showMessageDialog(null,"Cliente registrado correctamente");
                     Ventana4.setVisible(false);
                     U.EnviarRegistroClientes();

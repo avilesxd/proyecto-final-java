@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -268,16 +270,16 @@ public class Interfaz extends JFrame implements ActionListener{
     public static class MostrarClientes{
         JFrame Ventana52;
         JTable tabla;
+        DefaultTableModel dtm2;
         MostrarClientes(){
             Ventana52 = new JFrame();
             Ventana52.setTitle("Clientes Registrados");
-            String[][] datos = {
-                    // Traer a los clientes registrados desde la base de datos
-            };
+            Object[][] datos = {};
             String[] NombreColumnas = {"Id","Nombre","Telefono","Direccion","Run"};
-            tabla = new JTable(datos, NombreColumnas);
-            tabla.setBounds(30, 40, 200, 300);
+            dtm2 = new DefaultTableModel(datos,NombreColumnas);
+            tabla = new JTable(dtm2);
             JScrollPane sp = new JScrollPane(tabla);
+            tabla.setPreferredScrollableViewportSize(new Dimension(500,200));
             tabla.setEnabled(false);
             Ventana52.add(sp);
             Ventana52.setResizable(false);
@@ -289,16 +291,16 @@ public class Interfaz extends JFrame implements ActionListener{
     public static class MostrarProductos{
         JFrame Ventana72;
         JTable tabla2;
+        DefaultTableModel dtm;
         MostrarProductos(){
             Ventana72 = new JFrame();
             Ventana72.setTitle("Productos Registrados");
-            String[][] datos = {
-                    // Traer todos los productos registrados desde la base de datos
-            };
-            String[] NombreColumnas = {"Id","Nombre","Precio","Stock"};
-            tabla2 = new JTable(datos, NombreColumnas);
-            tabla2.setBounds(30, 40, 200, 300);
+            String[][] datos = {};
+            String[] NombreColumnas = {"Id","Nombre","Precio"};
+            dtm = new DefaultTableModel(datos,NombreColumnas);
+            tabla2 = new JTable(dtm);
             JScrollPane sp = new JScrollPane(tabla2);
+            tabla2.setPreferredScrollableViewportSize(new Dimension(500,200));
             tabla2.setEnabled(false);
             Ventana72.add(sp);
             Ventana72.setResizable(false);
@@ -316,6 +318,7 @@ public class Interfaz extends JFrame implements ActionListener{
         if (e.getSource() == cerrarSesion){
             Ventana3.setVisible(false);
             Ventana4.setVisible(false);
+            Ventana6.setVisible(false);
             Ventana();
         }
         if (e.getSource() == Bregistrar){
@@ -326,13 +329,15 @@ public class Interfaz extends JFrame implements ActionListener{
             Ventana4();
         }
         if (e.getSource() == menuItem22){
-            Ventana5();
+            MostrarClientes MC =new MostrarClientes();
+            U.ListarClientes(MC.dtm2);
         }
         if (e.getSource() == menuItem31){
             Ventana6();
         }
         if (e.getSource() == menuItem32){
-            Ventana7();
+            MostrarProductos MP =new MostrarProductos();
+            U.ListarProductos(MP.dtm);
         }
         if (e.getSource() == BotonCancelarRegistro){
             Ventana4.setVisible(false);

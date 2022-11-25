@@ -1,3 +1,5 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 
 public class Usuarios {
@@ -204,5 +206,17 @@ public class Usuarios {
 
     public void EnviarRegistroProductos() throws SQLException {
         MU.RegistroProductos(getNombreProducto(), getPrecioProducto(), getNumeroStock());
+    }
+
+    public void ListarProductos(DefaultTableModel x){
+        for (int i = 1; i <= MU.CantidadDeProductos(); i++){
+            x.addRow(MU.MostarProductos(i));
+        }
+    }
+
+    public void ListarClientes(DefaultTableModel y){
+        for (int i = 1; i <= MU.CantidadDeProductos(); i++){
+            y.addRow(MU.MostrarClientes(i));
+        }
     }
 }

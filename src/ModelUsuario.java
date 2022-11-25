@@ -25,6 +25,28 @@ public class ModelUsuario {
         return Conexion;
     }
 
+    public String[] Solicitar(String usuarios) throws Exception {
+        Connection DB = Conexion();
+        Statement st = null;
+        ResultSet rs = null;
+        if (DB != null){
+            try {
+                String SQL = "SELECT usuario,password FROM usuarios WHERE usuario ='" + usuarios + "'";
+                st = DB.createStatement();
+                rs = st.executeQuery(SQL);
+                if (rs.next()) {
+                    String usuario = rs.getString("usuario");
+                    String password = rs.getString("password");
+                    String[] SUP = new String[]{usuario,password};
+                    return SUP;
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return new String[]{""};
+    }
+
     public void Insertar(String usuario,String password) throws Exception{
         Connection c=null;
         PreparedStatement ps = null;
@@ -85,25 +107,72 @@ public class ModelUsuario {
         }
     }
 
-    public String[] Solicitar(String usuarios) throws Exception {
+    public Object[] MostarProductos(int zzz){
         Connection DB = Conexion();
         Statement st = null;
         ResultSet rs = null;
-        if (DB != null){
+        if (DB != null) {
             try {
-                String SQL = "SELECT usuario,password FROM usuarios WHERE usuario ='" + usuarios + "'";
+                String SQL = "SELECT id,nombre,precio from productos_base WHERE id=" + zzz + "";
                 st = DB.createStatement();
                 rs = st.executeQuery(SQL);
                 if (rs.next()) {
-                    String usuario = rs.getString("usuario");
-                    String password = rs.getString("password");
-                    String[] SUP = new String[]{usuario,password};
-                    return SUP;
+                    String id = rs.getString("id");
+                    String nombre = rs.getString("nombre");
+                    String precio = rs.getString("precio");
+                    Object[] ProductosBase = {id, nombre, precio};
+                    return ProductosBase;
                 }
             } catch (Exception e) {
 
             }
         }
-        return new String[]{""};
+        return new Object[]{""};
+    }
+
+    public Object[] MostrarClientes(int ttt){
+        Connection DB = Conexion();
+        Statement st = null;
+        ResultSet rs = null;
+        if (DB != null) {
+            try {
+                String SQL = "SELECT id,nombre,telefono,direccion,run from clientes WHERE id=" + ttt + "";
+                st = DB.createStatement();
+                rs = st.executeQuery(SQL);
+                if (rs.next()) {
+                    String id = rs.getString("id");
+                    String nombre = rs.getString("nombre");
+                    int telefono = rs.getInt("telefono");
+                    String direccion = rs.getString("direccion");
+                    String run = rs.getString("run");
+                    Object[] allClientes = {id,nombre,telefono,direccion,run};
+                    return allClientes;
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return new Object[]{""};
+    }
+
+    public int CantidadDeProductos() {
+        Connection DB = Conexion();
+        Statement st = null;
+        ResultSet rs = null;
+        if (DB != null) {
+            try {
+                String SQL = "SELECT count(nombre) from productos_base";
+                st = DB.createStatement();
+                rs = st.executeQuery(SQL);
+                if (rs.next()) {
+                    String numeroTotal = rs.getString("Count(nombre)");
+                    int x = Integer.parseInt(numeroTotal);
+                    return x;
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return 0;
     }
 }

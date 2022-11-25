@@ -219,4 +219,8 @@ public class Usuarios {
             y.addRow(MU.MostrarClientes(i));
         }
     }
+
+    public void BuscarCliente(DefaultTableModel f){
+        f.addRow(MU.BuscarCliente(getNombre()));
+    }
 }

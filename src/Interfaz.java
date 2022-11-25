@@ -16,7 +16,7 @@ public class Interfaz extends JFrame implements ActionListener{
     JMenuBar menuBar;
     JMenu menu1, menu2, menu3;
     JMenuItem menuItem21, menuItem22, menuItem31, menuItem32;
-    Usuarios U = new Usuarios();
+    static Usuarios U = new Usuarios();
     public Interfaz(){
         Ventana();
     }
@@ -267,9 +267,12 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana6.add(BotonCancelarRegistroProducto);
     }
 
-    public static class MostrarClientes{
+    public static class MostrarClientes implements ActionListener{
+        Usuarios u = new Usuarios();
         JFrame Ventana52;
         JTable tabla;
+        JTextField BuscarCliente;
+        JButton BuscarCliente2;
         DefaultTableModel dtm2;
         MostrarClientes(){
             Ventana52 = new JFrame();
@@ -281,14 +284,34 @@ public class Interfaz extends JFrame implements ActionListener{
             JScrollPane sp = new JScrollPane(tabla);
             tabla.setPreferredScrollableViewportSize(new Dimension(500,200));
             tabla.setEnabled(false);
+            BuscarCliente = new JTextField();
+            BuscarCliente.setBounds(10,290,150,30);
+            BuscarCliente2 = new JButton("Buscar cliente");
+            BuscarCliente2.setBounds(190,290,150,30);
+            BuscarCliente2.addActionListener(this);
+            Ventana52.add(BuscarCliente);
+            Ventana52.add(BuscarCliente2);
             Ventana52.add(sp);
             Ventana52.setResizable(false);
-            Ventana52.setSize(500, 200);
+            Ventana52.setSize(800, 400);
             Ventana52.setVisible(true);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == BuscarCliente2){
+                if (BuscarCliente.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Debe ingresar un nombre");
+                } else {
+                    U.setNombre(BuscarCliente.getText());
+                    U.BuscarCliente(dtm2);
+                }
+            }
         }
     }
 
     public static class MostrarProductos{
+        Usuarios u = new Usuarios();
         JFrame Ventana72;
         JTable tabla2;
         DefaultTableModel dtm;
@@ -304,13 +327,37 @@ public class Interfaz extends JFrame implements ActionListener{
             tabla2.setEnabled(false);
             Ventana72.add(sp);
             Ventana72.setResizable(false);
-            Ventana72.setSize(500, 200);
+            Ventana72.setSize(800, 400);
             Ventana72.setVisible(true);
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == Bregistrar){
+            Ventana.setVisible(false);
+            Ventana2();
+        }
+        if (e.getSource() == menuItem21){
+            Ventana4();
+        }
+        if (e.getSource() == menuItem31){
+            Ventana6();
+        }
+        if (e.getSource() == BotonCancelarRegistro){
+            Ventana4.setVisible(false);
+        }
+        if (e.getSource() == BotonCancelarRegistroProducto){
+            Ventana6.setVisible(false);
+        }
+        if (e.getSource() == menuItem22){
+            MostrarClientes MC =new MostrarClientes();
+            U.ListarClientes(MC.dtm2);
+        }
+        if (e.getSource() == menuItem32){
+            MostrarProductos MP =new MostrarProductos();
+            U.ListarProductos(MP.dtm);
+        }
         if (e.getSource() == BirAtras){
             Ventana2.setVisible(false);
             Ventana();
@@ -320,30 +367,6 @@ public class Interfaz extends JFrame implements ActionListener{
             Ventana4.setVisible(false);
             Ventana6.setVisible(false);
             Ventana();
-        }
-        if (e.getSource() == Bregistrar){
-            Ventana.setVisible(false);
-            Ventana2();
-        }
-        if (e.getSource() == menuItem21){
-            Ventana4();
-        }
-        if (e.getSource() == menuItem22){
-            MostrarClientes MC =new MostrarClientes();
-            U.ListarClientes(MC.dtm2);
-        }
-        if (e.getSource() == menuItem31){
-            Ventana6();
-        }
-        if (e.getSource() == menuItem32){
-            MostrarProductos MP =new MostrarProductos();
-            U.ListarProductos(MP.dtm);
-        }
-        if (e.getSource() == BotonCancelarRegistro){
-            Ventana4.setVisible(false);
-        }
-        if (e.getSource() == BotonCancelarRegistroProducto){
-            Ventana6.setVisible(false);
         }
         if (e.getSource() == RegistrarCliente){
             U.setNombre(nombre2.getText());

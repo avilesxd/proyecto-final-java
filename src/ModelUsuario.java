@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Arrays;
 
 public class ModelUsuario {
     static String driver = "com.mysql.cj.jdbc.Driver";
@@ -174,5 +175,30 @@ public class ModelUsuario {
             }
         }
         return 0;
+    }
+
+    public Object[] BuscarCliente(String ttt) {
+        Connection DB = Conexion();
+        Statement st = null;
+        ResultSet rs = null;
+        if (DB != null) {
+            try {
+                String SQL = "SELECT * FROM clientes WHERE nombre='" + ttt + "'";
+                st = DB.createStatement();
+                rs = st.executeQuery(SQL);
+                if (rs.next()) {
+                    String id = rs.getString("id");
+                    String nombre = rs.getString("nombre");
+                    int telefono = rs.getInt("telefono");
+                    String direccion = rs.getString("direccion");
+                    String run = rs.getString("run");
+                    Object[] allDataCliente = {id,nombre,telefono,direccion,run};
+                    return allDataCliente;
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return new Object[]{""};
     }
 }

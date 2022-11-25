@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 public class Interfaz extends JFrame implements ActionListener{
     // Variables
     JFrame Ventana, Ventana2, Ventana3, Ventana4, Ventana5, Ventana6, Ventana7;
-    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, cerrarSesion, RegistrarCliente, BotonCancelarRegistro;
-    JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre, direccion, telefono, run, run3;
-    JTextField  Txusuario, Txusuario3, nombre2, direccion2, telefono2, run2, run4;
+    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, cerrarSesion, RegistrarCliente, BotonCancelarRegistro, RegistrarProducto, BotonCancelarRegistroProducto;
+    JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre, direccion, telefono, run, run3, nombreProducto, precioProducto, numeroStock;
+    JTextField  Txusuario, Txusuario3, nombre2, direccion2, telefono2, run2, run4, nombreProducto2, precioProducto2, numeroStock2;
     JPasswordField Txpassword, Txpassword2, Txpassword3;
     String passwordddd, passwordddd2, susuTexto;
     JMenuBar menuBar;
@@ -77,7 +77,7 @@ public class Interfaz extends JFrame implements ActionListener{
         // ventana
         Ventana6 = new JFrame();
         Ventana6.setTitle("Ingresar productos");
-        Ventana6.setSize(600,600);
+        Ventana6.setSize(300,300);
         Ventana6.setLayout(null);
         Ventana6.setLocationRelativeTo(null);
         //Ventana6.setResizable(false);
@@ -230,7 +230,38 @@ public class Interfaz extends JFrame implements ActionListener{
     }
 
     public void AgregarProductos(){
-
+        // Ingresar los datos para los productos
+        // Nombre
+        nombreProducto = new JLabel("Nombre");
+        nombreProducto.setBounds(10,10,100,30);
+        Ventana6.add(nombreProducto);
+        nombreProducto2 = new JTextField();
+        nombreProducto2.setBounds(100,10,150,30);
+        Ventana6.add(nombreProducto2);
+        // Precio
+        precioProducto = new JLabel("Precio");
+        precioProducto.setBounds(10,50,100,30);
+        Ventana6.add(precioProducto);
+        precioProducto2 = new JTextField();
+        precioProducto2.setBounds(100,50,150,30);
+        Ventana6.add(precioProducto2);
+        // Stock
+        numeroStock = new JLabel("Stock");
+        numeroStock.setBounds(10,90,150,30);
+        Ventana6.add(numeroStock);
+        numeroStock2 = new JTextField();
+        numeroStock2.setBounds(100,90,150,30);
+        Ventana6.add(numeroStock2);
+        // Boton para registrar el producto
+        RegistrarProducto = new JButton("Registrar");
+        RegistrarProducto.setBounds(15,170,120,40);
+        RegistrarProducto.addActionListener(this);
+        Ventana6.add(RegistrarProducto);
+        // Boton para cancelar el registro del producto
+        BotonCancelarRegistroProducto = new JButton("Cancelar");
+        BotonCancelarRegistroProducto.setBounds(145,170,120,40);
+        BotonCancelarRegistroProducto.addActionListener(this);
+        Ventana6.add(BotonCancelarRegistroProducto);
     }
 
     public static class MostrarClientes{
@@ -259,7 +290,7 @@ public class Interfaz extends JFrame implements ActionListener{
         JTable tabla2;
         MostrarProductos(){
             Ventana72 = new JFrame();
-            Ventana72.setTitle("Clientes Registrados");
+            Ventana72.setTitle("Productos Registrados");
             String[][] datos = {
                     // Traer todos los productos registrados desde la base de datos
             };
@@ -305,8 +336,31 @@ public class Interfaz extends JFrame implements ActionListener{
         if (e.getSource() == BotonCancelarRegistro){
             Ventana4.setVisible(false);
         }
+        if (e.getSource() == BotonCancelarRegistroProducto){
+            Ventana6.setVisible(false);
+        }
         if (e.getSource() == RegistrarCliente){
-            JOptionPane.showMessageDialog(null,"Cliente registrado correctamente");
+            U.setNombre(nombre2.getText());
+            U.setTelefono(telefono2.getText());
+            U.setDireccion(direccion2.getText());
+            U.setRun(run2.getText());
+            try {
+                if (U.ValidarRegistroClientes() == 1){
+                    JOptionPane.showMessageDialog(null,"Cliente registrado correctamente");
+                    Ventana4.setVisible(false);
+                    U.EnviarRegistroClientes();
+                } else if (U.ValidarRegistroClientes() == 2) {
+                    Ventana4.setVisible(false);
+                    JOptionPane.showMessageDialog(null,"Ingrese solamente 8 digitos");
+                    Ventana4();
+                }else {
+                    JOptionPane.showMessageDialog(null,"Verifique el run ingresado");
+                    Ventana4.setVisible(false);
+                    Ventana4();
+                }
+            }catch (Exception ex){
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == Blogin){
             Ventana.setVisible(false);
@@ -353,9 +407,8 @@ public class Interfaz extends JFrame implements ActionListener{
                 throw new RuntimeException(ex);
             }
         }
-        if (e.getSource() == RegistrarCliente){
-            Ventana4.setVisible(false);
-            U.EnviarRegistroClientes();
+        if (e.getSource() == RegistrarProducto){
+
         }
     }
 }

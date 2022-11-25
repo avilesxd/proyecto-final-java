@@ -1,5 +1,4 @@
 import java.sql.*;
-import java.util.Arrays;
 
 public class ModelUsuario {
     static String driver = "com.mysql.cj.jdbc.Driver";
@@ -15,13 +14,13 @@ public class ModelUsuario {
         } catch (Exception e) {
             System.out.println("Error con la base de datos");
         }finally {
-           if (Conexion == null){
-               try {
-                   Conexion().close();
-               }catch (SQLException e){
+            if (Conexion == null){
+                try {
+                    Conexion().close();
+                }catch (SQLException e){
 
-               }
-           }
+                }
+            }
         }
         return Conexion;
     }
@@ -50,7 +49,7 @@ public class ModelUsuario {
         }
     }
 
-    public void RegistroClientes(String nombre,String direccion, String telefono, String run) throws SQLException {
+    public void IngresarProductos(String nombre, int precio, int stock){
         Connection c=null;
         PreparedStatement ps = null;
         String sql = null;
@@ -58,21 +57,31 @@ public class ModelUsuario {
         try {
             c = Conexion();
             c.setAutoCommit(false);
-            sql = "INSERT INTO clientes (nombre, direccion, telefono, run) VALUES (?,?,?,?)";
+            sql = "INSERT INTO usuarios (usuario,password) VALUES ('"+nombre+"',"+precio+",'"+stock+"')";
             ps = c.prepareStatement(sql);
-            ps.setString(1,nombre);
-            ps.setInt(2, Integer.parseInt(telefono));
-            ps.setString(3,direccion);
-            ps.setString(4,run);
             ps.executeUpdate();
             c.commit();
             c.close();
         }catch (Exception e){
-            try {
-                c.rollback();
-            }catch (SQLException ex){
-                throw e;
-            }
+
+        }
+    }
+
+    public void RegistroClientes(String nombre, String telefono, String direccion, String run) {
+        Connection c=null;
+        PreparedStatement ps = null;
+        String sql = null;
+
+        try {
+            c = Conexion();
+            c.setAutoCommit(false);
+            sql = "INSERT INTO clientes (nombre, telefono, direccion, run) VALUES ('"+nombre+"',"+telefono+",'"+direccion+"','"+run+"')";
+            ps = c.prepareStatement(sql);
+            ps.executeUpdate();
+            c.commit();
+            c.close();
+        }catch (Exception e){
+
         }
     }
 
@@ -94,32 +103,6 @@ public class ModelUsuario {
             } catch (Exception e) {
 
             }
-        }
-        return new String[]{""};
-    }
-
-    public Object[] MostrarClientes() throws Exception {
-        //pendiente
-        Connection DB2 = Conexion();
-        Statement st = null;
-        ResultSet rs = null;
-        if (DB2 != null){
-         try {
-             String SQL2 = "SELECT id,nombre,telefono,direccion,run FROM clientes";
-             st = DB2.createStatement();
-             rs = st.executeQuery(SQL2);
-             if (rs.next()){
-                 String id = rs.getString("id");
-                 String nombre = rs.getString("nombre");
-                 String telefono = rs.getString("telefono");
-                 String direccion = rs.getString("direccion");
-                 String run = rs.getString("run");
-                 String[] SUP2 = new String[]{id,nombre,telefono,direccion,run};
-                 return SUP2;
-             }
-         }catch (Exception e){
-
-         }
         }
         return new String[]{""};
     }

@@ -8,9 +8,9 @@ import java.sql.SQLException;
 public class Interfaz extends JFrame implements ActionListener{
     // Variables
     JFrame Ventana, Ventana2, Ventana3, Ventana4, Ventana5, Ventana6, Ventana7;
-    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, cerrarSesion, RegistrarCliente, BotonCancelarRegistro, RegistrarProducto, BotonCancelarRegistroProducto;
-    JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre, direccion, telefono, run, run3, nombreProducto, precioProducto, numeroStock;
-    JTextField  Txusuario, Txusuario3, nombre2, direccion2, telefono2, run2, run4, nombreProducto2, precioProducto2, numeroStock2;
+    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, cerrarSesion, RegistrarCliente, BotonCancelarRegistro, RegistrarProducto, BotonCancelarRegistroProducto, cancelarCompra, crearCompra;
+    JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre, direccion, telefono, run, run3, nombreProducto, precioProducto, numeroStock, nombreCliente, runCliente;
+    JTextField  Txusuario, Txusuario3, nombre2, direccion2, telefono2, run2, run4, nombreProducto2, precioProducto2, numeroStock2, txtNombreCliente, txtRun;
     JPasswordField Txpassword, Txpassword2, Txpassword3;
     String passwordddd, passwordddd2, susuTexto;
     JMenuBar menuBar;
@@ -183,6 +183,28 @@ public class Interfaz extends JFrame implements ActionListener{
         menuItem32.addActionListener(this);
         menuBar.setBounds(10,10,66,30);
         Ventana3.add(menuBar);
+        // Orden de compra
+        nombreCliente = new JLabel("Nombre Cliente");
+        nombreCliente.setBounds(650,10,100,30);
+        txtNombreCliente = new JTextField();
+        txtNombreCliente.setBounds(750,10,130,30);
+        runCliente = new JLabel("Run");
+        runCliente.setBounds(920,10,100,30);
+        txtRun = new JTextField();
+        txtRun.setBounds(960,10,100,30);
+        // Barra de busqueda y tabla de productos existentes
+        Ventana3.add(nombreCliente);
+        Ventana3.add(txtNombreCliente);
+        Ventana3.add(runCliente);
+        Ventana3.add(txtRun);
+        // Boton para generar la orden de compra
+        crearCompra = new JButton("Crear compra");
+        crearCompra.setBounds(650,600,150,40);
+        Ventana3.add(crearCompra);
+        // Boton para cancelar la orden de compra
+        cancelarCompra = new JButton("Cancelar compra");
+        cancelarCompra.setBounds(850,600,150,40);
+        Ventana3.add(cancelarCompra);
         // Boton para cerrar la sesion
         cerrarSesion = new JButton("Cerrar sesion");
         cerrarSesion.setBounds(1100,600,120,40);
@@ -313,7 +335,7 @@ public class Interfaz extends JFrame implements ActionListener{
     public static class MostrarProductos implements ActionListener{
         Usuarios u = new Usuarios();
         JFrame Ventana72;
-        JTable tabla2;
+        JTable tabla2, tabla3;
         JTextField BuscarProducto;
         JButton BuscarProducto2;
         DefaultTableModel dtm;
@@ -321,7 +343,7 @@ public class Interfaz extends JFrame implements ActionListener{
             Ventana72 = new JFrame();
             Ventana72.setTitle("Productos Registrados");
             String[][] datos = {};
-            String[] NombreColumnas = {"Id","Nombre","Precio"};
+            String[] NombreColumnas = {"Id","Nombre","Precio", "Stock"};
             dtm = new DefaultTableModel(datos,NombreColumnas);
             tabla2 = new JTable(dtm);
             JScrollPane sp = new JScrollPane(tabla2);
@@ -385,8 +407,6 @@ public class Interfaz extends JFrame implements ActionListener{
         }
         if (e.getSource() == cerrarSesion){
             Ventana3.setVisible(false);
-            Ventana4.setVisible(false);
-            Ventana6.setVisible(false);
             Ventana();
         }
         if (e.getSource() == RegistrarCliente){
@@ -395,7 +415,9 @@ public class Interfaz extends JFrame implements ActionListener{
             U.setDireccion(direccion2.getText());
             U.setRun(run2.getText());
             try {
-                if (nombre2.getText().isEmpty() || telefono2.getText().isEmpty() || direccion2.getText().isEmpty()){
+                if (!U.ValidarRutExistente()){
+                    JOptionPane.showMessageDialog(null,"El rut ingresado ya existe");
+                } else if (nombre2.getText().isEmpty() || telefono2.getText().isEmpty() || direccion2.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"LLene todo los campos antes de continuar");
                 } else if (U.ValidarRegistroClientes() == 1){
                     JOptionPane.showMessageDialog(null,"Cliente registrado correctamente");
@@ -443,7 +465,9 @@ public class Interfaz extends JFrame implements ActionListener{
             passwordddd2 = new String(passworddddChar);
             U.setUsuario(Txusuario3.getText());
             try {
-                if (U.ValidacionusuarioExistente()){
+                if (Txusuario3.getText().isEmpty() || passwordddd.isEmpty() || passwordddd2.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Rellene todos los datos antes de continuar");
+                } else if (U.ValidacionusuarioExistente()){
                     JOptionPane.showMessageDialog(null, "El usuario ya existe, Intente nuevamente!");
                 } else if (!passwordddd.equals(passwordddd2)){
                     JOptionPane.showMessageDialog(null, "Verifique su contraseñas!");
@@ -460,9 +484,9 @@ public class Interfaz extends JFrame implements ActionListener{
             }
         }
         if (e.getSource() == RegistrarProducto){
-           U.setNombreProducto(nombreProducto2.getText());
-           U.setPrecioProducto(precioProducto2.getText());
-           U.setNumeroStock(numeroStock2.getText());
+            U.setNombreProducto(nombreProducto2.getText());
+            U.setPrecioProducto(precioProducto2.getText());
+            U.setNumeroStock(numeroStock2.getText());
             try {
                 Ventana6.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Producto agregado correctamente");

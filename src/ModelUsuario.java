@@ -26,6 +26,27 @@ public class ModelUsuario {
         return Conexion;
     }
 
+    public String[] RutExistente(String run){
+        Connection DB = Conexion();
+        Statement st = null;
+        ResultSet rs = null;
+        if (DB != null){
+            try {
+                String SQL = "SELECT run FROM clientes WHERE usuario ='" + run + "'";
+                st = DB.createStatement();
+                rs = st.executeQuery(SQL);
+                if (rs.next()) {
+                    String rut = rs.getString("run");
+                    String[] SUP5 = new String[]{rut};
+                    return SUP5;
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return new String[]{""};
+    }
+
     public String[] Solicitar(String usuarios) throws Exception {
         Connection DB = Conexion();
         Statement st = null;
@@ -114,14 +135,15 @@ public class ModelUsuario {
         ResultSet rs = null;
         if (DB != null) {
             try {
-                String SQL = "SELECT id,nombre,precio from productos_base WHERE id=" + zzz + "";
+                String SQL = "SELECT id,nombre,precio,stock from productos_base WHERE id=" + zzz + "";
                 st = DB.createStatement();
                 rs = st.executeQuery(SQL);
                 if (rs.next()) {
                     String id = rs.getString("id");
                     String nombre = rs.getString("nombre");
                     String precio = rs.getString("precio");
-                    Object[] ProductosBase = {id, nombre, precio};
+                    int stock = rs.getInt("stock");
+                    Object[] ProductosBase = {id, nombre, precio, stock};
                     return ProductosBase;
                 }
             } catch (Exception e) {

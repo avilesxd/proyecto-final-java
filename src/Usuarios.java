@@ -1,4 +1,3 @@
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 
@@ -125,13 +124,27 @@ public class Usuarios {
         }
     }
 
+    public boolean ValidarRutExistente() throws Exception{
+        try {
+            String[] SUP4 = MU.RutExistente(getRun());
+            if (getRun().equals(SUP4[0])){
+                setRun(null);
+                return true;
+            }else {
+                return false;
+            }
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
     public void EnviarRegistro() throws Exception {
         MU.Insertar(getUsuario(),getPassword());
     }
 
     public boolean ValidarRun(String rut) {
         String run = "";
-        String auxrut = rut;
+        String auxrut = rut.toUpperCase();
         String rut1 = rut.split("-")[0];
         int sum = 0;
         int mult = 0;
@@ -172,11 +185,9 @@ public class Usuarios {
                 int d = c * 11;
                 int e = sum - d;
                 num_verificador = 11 - e;
-
             }
         } catch (Exception e) {
         }
-
         String ultimo = auxrut.substring(auxrut.length() - 1);
         String auxR = String.valueOf(num_verificador);
         if (ultimo.equals("K") && num_verificador == 10) {

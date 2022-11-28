@@ -7,10 +7,10 @@ import java.sql.SQLException;
 
 public class Interfaz extends JFrame implements ActionListener{
     // Variables
-    JFrame Ventana, Ventana2, Ventana3, Ventana4, Ventana5, Ventana6, Ventana7;
-    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, cerrarSesion, RegistrarCliente, BotonCancelarRegistro, RegistrarProducto, BotonCancelarRegistroProducto, cancelarCompra, crearCompra;
-    JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre, direccion, telefono, run, run3, nombreProducto, precioProducto, numeroStock, nombreCliente, runCliente;
-    JTextField  Txusuario, Txusuario3, nombre2, direccion2, telefono2, run2, run4, nombreProducto2, precioProducto2, numeroStock2, txtNombreCliente, txtRun;
+    JFrame Ventana, Ventana2, Ventana3, Ventana4, Ventana5, Ventana6, Ventana7, Ventana8;
+    JButton Blogin, Bregistrar, Bregistrar2, BirAtras, cerrarSesion, RegistrarCliente, BotonCancelarRegistro, RegistrarProducto, BotonCancelarRegistroProducto, cancelarCompra, crearCompra, ordenDeCompra, buscarProducto2;
+    JLabel Tusuario, Tusuario2, Tpassword, Tpassword2, Tpassword3, nombre, direccion, telefono, run, run3, nombreProducto, precioProducto, numeroStock, nombreCliente, runCliente, buscarProducto;
+    JTextField  Txusuario, Txusuario3, nombre2, direccion2, telefono2, run2, run4, nombreProducto2, precioProducto2, numeroStock2, txtNombreCliente, txtRun, ingresarProducto;
     JPasswordField Txpassword, Txpassword2, Txpassword3;
     String passwordddd, passwordddd2, susuTexto;
     JMenuBar menuBar;
@@ -50,7 +50,7 @@ public class Interfaz extends JFrame implements ActionListener{
         // ventana
         Ventana3 = new JFrame();
         Ventana3.setTitle("DashBoard");
-        Ventana3.setSize(1280,720);
+        Ventana3.setSize(600,600);
         Ventana3.setLayout(null);
         Ventana3.setLocationRelativeTo(null);
         //Ventana3.setResizable(false);
@@ -91,6 +91,19 @@ public class Interfaz extends JFrame implements ActionListener{
 
     public void Ventana7(){
         new MostrarProductos();
+    }
+
+    public void Ventana8(){
+        // ventana
+        Ventana8 = new JFrame();
+        Ventana8.setTitle("Orden de compra");
+        Ventana8.setSize(600,600);
+        Ventana8.setLayout(null);
+        Ventana8.setLocationRelativeTo(null);
+        //Ventana8.setResizable(false);
+        //Ventana8.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Ventana8.setVisible(true);
+        generarOrdenCompra();
     }
 
     public void Login(){
@@ -183,31 +196,14 @@ public class Interfaz extends JFrame implements ActionListener{
         menuItem32.addActionListener(this);
         menuBar.setBounds(10,10,66,30);
         Ventana3.add(menuBar);
-        // Orden de compra
-        nombreCliente = new JLabel("Nombre Cliente");
-        nombreCliente.setBounds(650,10,100,30);
-        txtNombreCliente = new JTextField();
-        txtNombreCliente.setBounds(750,10,130,30);
-        runCliente = new JLabel("Run");
-        runCliente.setBounds(920,10,100,30);
-        txtRun = new JTextField();
-        txtRun.setBounds(960,10,100,30);
-        // Barra de busqueda y tabla de productos existentes
-        Ventana3.add(nombreCliente);
-        Ventana3.add(txtNombreCliente);
-        Ventana3.add(runCliente);
-        Ventana3.add(txtRun);
-        // Boton para generar la orden de compra
-        crearCompra = new JButton("Crear compra");
-        crearCompra.setBounds(650,600,150,40);
-        Ventana3.add(crearCompra);
-        // Boton para cancelar la orden de compra
-        cancelarCompra = new JButton("Cancelar compra");
-        cancelarCompra.setBounds(850,600,150,40);
-        Ventana3.add(cancelarCompra);
+        // Boton para crear orden de compra
+        ordenDeCompra = new JButton("Orden de compra");
+        ordenDeCompra.setBounds(280,500,150,40);
+        ordenDeCompra.addActionListener(this);
+        Ventana3.add(ordenDeCompra);
         // Boton para cerrar la sesion
         cerrarSesion = new JButton("Cerrar sesion");
-        cerrarSesion.setBounds(1100,600,120,40);
+        cerrarSesion.setBounds(450,500,120,40);
         cerrarSesion.addActionListener(this);
         Ventana3.add(cerrarSesion);
     }
@@ -287,6 +283,44 @@ public class Interfaz extends JFrame implements ActionListener{
         BotonCancelarRegistroProducto.setBounds(145,170,120,40);
         BotonCancelarRegistroProducto.addActionListener(this);
         Ventana6.add(BotonCancelarRegistroProducto);
+    }
+
+    public void generarOrdenCompra(){
+        // Orden de compra
+        // Datos del cliente
+        nombreCliente = new JLabel("Nombre Cliente");
+        nombreCliente.setBounds(10,10,100,30);
+        txtNombreCliente = new JTextField();
+        txtNombreCliente.setBounds(120,10,150,30);
+        runCliente = new JLabel("Run");
+        runCliente.setBounds(280,10,100,30);
+        txtRun = new JTextField();
+        txtRun.setBounds(350,10,150,30);
+        // Buscar productos y agregarlos a una tabla
+        buscarProducto = new JLabel("Productos base");
+        buscarProducto.setBounds(10,50,100,30);
+        ingresarProducto = new JTextField();
+        ingresarProducto.setBounds(120,50,150,30);
+        buscarProducto2 = new JButton("Agregar productos");
+        buscarProducto2.setBounds(350,50,150,30);
+        // Agregar los componentes a la ventana
+        Ventana8.add(nombreCliente);
+        Ventana8.add(txtNombreCliente);
+        Ventana8.add(runCliente);
+        Ventana8.add(txtRun);
+        Ventana8.add(buscarProducto);
+        Ventana8.add(ingresarProducto);
+        Ventana8.add(buscarProducto2);
+        // Boton para generar la orden de compra
+        crearCompra = new JButton("Crear compra");
+        crearCompra.setBounds(120,500,150,40);
+        crearCompra.addActionListener(this);
+        Ventana8.add(crearCompra);
+        // Boton para cancelar la orden de compra
+        cancelarCompra = new JButton("Cancelar compra");
+        cancelarCompra.setBounds(350,500,150,40);
+        cancelarCompra.addActionListener(this);
+        Ventana8.add(cancelarCompra);
     }
 
     public static class MostrarClientes implements ActionListener{
@@ -408,6 +442,12 @@ public class Interfaz extends JFrame implements ActionListener{
         if (e.getSource() == cerrarSesion){
             Ventana3.setVisible(false);
             Ventana();
+        }
+        if (e.getSource() == ordenDeCompra){
+            Ventana8();
+        }
+        if (e.getSource() == cancelarCompra){
+            Ventana8.setVisible(false);
         }
         if (e.getSource() == RegistrarCliente){
             U.setNombre(nombre2.getText());

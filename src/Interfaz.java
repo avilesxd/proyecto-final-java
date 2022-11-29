@@ -296,13 +296,21 @@ public class Interfaz extends JFrame implements ActionListener{
         runCliente.setBounds(280,10,100,30);
         txtRun = new JTextField();
         txtRun.setBounds(350,10,150,30);
-        // Buscar productos y agregarlos a una tabla
+        // Buscar productos
         buscarProducto = new JLabel("Productos base");
         buscarProducto.setBounds(10,50,100,30);
         ingresarProducto = new JTextField();
         ingresarProducto.setBounds(120,50,150,30);
         buscarProducto2 = new JButton("Agregar productos");
         buscarProducto2.setBounds(350,50,150,30);
+        // Boton para generar la orden de compra
+        crearCompra = new JButton("Crear compra");
+        crearCompra.setBounds(120,500,150,40);
+        crearCompra.addActionListener(this);
+        // Boton para cancelar la orden de compra
+        cancelarCompra = new JButton("Cancelar compra");
+        cancelarCompra.setBounds(350,500,150,40);
+        cancelarCompra.addActionListener(this);
         // Agregar los componentes a la ventana
         Ventana8.add(nombreCliente);
         Ventana8.add(txtNombreCliente);
@@ -311,15 +319,7 @@ public class Interfaz extends JFrame implements ActionListener{
         Ventana8.add(buscarProducto);
         Ventana8.add(ingresarProducto);
         Ventana8.add(buscarProducto2);
-        // Boton para generar la orden de compra
-        crearCompra = new JButton("Crear compra");
-        crearCompra.setBounds(120,500,150,40);
-        crearCompra.addActionListener(this);
         Ventana8.add(crearCompra);
-        // Boton para cancelar la orden de compra
-        cancelarCompra = new JButton("Cancelar compra");
-        cancelarCompra.setBounds(350,500,150,40);
-        cancelarCompra.addActionListener(this);
         Ventana8.add(cancelarCompra);
     }
 
@@ -448,6 +448,11 @@ public class Interfaz extends JFrame implements ActionListener{
         }
         if (e.getSource() == cancelarCompra){
             Ventana8.setVisible(false);
+        }
+        if (e.getSource() == crearCompra){
+            if (txtNombreCliente.getText().isEmpty() || txtRun.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null,"Llene los campos faltantes");
+            }
         }
         if (e.getSource() == RegistrarCliente){
             U.setNombre(nombre2.getText());

@@ -1,5 +1,4 @@
 import java.sql.*;
-import java.util.Arrays;
 
 public class ModelUsuario {
     static String driver = "com.mysql.cj.jdbc.Driver";

@@ -196,6 +196,7 @@ public class Interfaz extends JFrame implements ActionListener{
         menuItem32.addActionListener(this);
         menuBar.setBounds(10,10,66,30);
         Ventana3.add(menuBar);
+
         // Boton para crear orden de compra
         ordenDeCompra = new JButton("Orden de compra");
         ordenDeCompra.setBounds(280,500,150,40);
@@ -460,11 +461,11 @@ public class Interfaz extends JFrame implements ActionListener{
             U.setDireccion(direccion2.getText());
             U.setRun(run2.getText());
             try {
-                if (!U.ValidarRutExistente()){
-                    JOptionPane.showMessageDialog(null,"El rut ingresado ya existe");
-                } else if (nombre2.getText().isEmpty() || telefono2.getText().isEmpty() || direccion2.getText().isEmpty()){
+                if (nombre2.getText().isEmpty() || telefono2.getText().isEmpty() || direccion2.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null,"LLene todo los campos antes de continuar");
-                } else if (U.ValidarRegistroClientes() == 1){
+                } else if (U.ValidarRutExistente()){
+                    JOptionPane.showMessageDialog(null,"El rut ingresado ya existe");
+                }  else if (U.ValidarRegistroClientes() == 1){
                     JOptionPane.showMessageDialog(null,"Cliente registrado correctamente");
                     Ventana4.setVisible(false);
                     U.EnviarRegistroClientes();

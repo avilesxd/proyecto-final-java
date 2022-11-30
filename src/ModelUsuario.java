@@ -1,32 +1,8 @@
 import java.sql.*;
 
 public class ModelUsuario {
-    static String driver = "com.mysql.cj.jdbc.Driver";
-    static String db = "jdbc:mysql://localhost:3306/ordenes";
-    static String nombre = "root";
-    static String clave = "";
-
-    public static Connection Conexion(){
-        Connection Conexion = null;
-        try {
-            Class.forName(driver);
-            Conexion = DriverManager.getConnection(db, nombre, clave);
-        } catch (Exception e) {
-            System.out.println("Error con la base de datos");
-        }finally {
-            if (Conexion == null){
-                try {
-                    Conexion().close();
-                }catch (SQLException e){
-
-                }
-            }
-        }
-        return Conexion;
-    }
-
     public String[] RutExistente(String run){
-        Connection DB = Conexion();
+        Connection DB = ConexionDB.Conexion();
         Statement st = null;
         ResultSet rs = null;
         if (DB != null){
@@ -47,7 +23,7 @@ public class ModelUsuario {
     }
 
     public String[] Solicitar(String usuarios) throws Exception {
-        Connection DB = Conexion();
+        Connection DB = ConexionDB.Conexion();
         Statement st = null;
         ResultSet rs = null;
         if (DB != null){
@@ -74,7 +50,7 @@ public class ModelUsuario {
         String sql = null;
 
         try {
-            c = Conexion();
+            c = ConexionDB.Conexion();
             c.setAutoCommit(false);
             sql = "INSERT INTO usuarios (usuario,password) VALUES (?,?)";
             ps = c.prepareStatement(sql);
@@ -98,7 +74,7 @@ public class ModelUsuario {
         String sql = null;
 
         try {
-            c = Conexion();
+            c = ConexionDB.Conexion();
             c.setAutoCommit(false);
             sql = "INSERT INTO productos_base (nombre,precio,stock) VALUES ('"+nombre+"',"+precio+",'"+stock+"')";
             ps = c.prepareStatement(sql);
@@ -116,7 +92,7 @@ public class ModelUsuario {
         String sql = null;
 
         try {
-            c = Conexion();
+            c = ConexionDB.Conexion();
             c.setAutoCommit(false);
             sql = "INSERT INTO clientes (nombre, telefono, direccion, run) VALUES ('"+nombre+"',"+telefono+",'"+direccion+"','"+run+"')";
             ps = c.prepareStatement(sql);
@@ -129,7 +105,7 @@ public class ModelUsuario {
     }
 
     public Object[] MostarProductos(int zzz){
-        Connection DB = Conexion();
+        Connection DB = ConexionDB.Conexion();
         Statement st = null;
         ResultSet rs = null;
         if (DB != null) {
@@ -153,7 +129,7 @@ public class ModelUsuario {
     }
 
     public Object[] MostrarClientes(int ttt){
-        Connection DB = Conexion();
+        Connection DB = ConexionDB.Conexion();
         Statement st = null;
         ResultSet rs = null;
         if (DB != null) {
@@ -178,7 +154,7 @@ public class ModelUsuario {
     }
 
     public int CantidadDeProductos() {
-        Connection DB = Conexion();
+        Connection DB = ConexionDB.Conexion();
         Statement st = null;
         ResultSet rs = null;
         if (DB != null) {
@@ -199,7 +175,7 @@ public class ModelUsuario {
     }
 
     public Object[] BuscarCliente(String ttt) {
-        Connection DB = Conexion();
+        Connection DB = ConexionDB.Conexion();
         Statement st = null;
         ResultSet rs = null;
         if (DB != null) {
@@ -224,7 +200,7 @@ public class ModelUsuario {
     }
 
     public Object[] BuscarProducto(String ppp){
-        Connection DB = Conexion();
+        Connection DB = ConexionDB.Conexion();
         Statement st = null;
         ResultSet rs = null;
         if (DB != null) {

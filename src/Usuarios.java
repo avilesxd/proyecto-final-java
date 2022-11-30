@@ -128,7 +128,6 @@ public class Usuarios {
         try {
             String[] SUP4 = MU.RutExistente(getRun());
             if (getRun().equals(SUP4[0])){
-                setRun(null);
                 return true;
             }else {
                 return false;

@@ -1,0 +1,3 @@
+1.- crear tabla para agregar productos
+2.- mostrar subtotal por productos
+3.- mostrar total a pagar

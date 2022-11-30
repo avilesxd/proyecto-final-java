@@ -530,15 +530,19 @@ public class Interfaz extends JFrame implements ActionListener{
             }
         }
         if (e.getSource() == RegistrarProducto){
-            U.setNombreProducto(nombreProducto2.getText());
-            U.setPrecioProducto(precioProducto2.getText());
-            U.setNumeroStock(numeroStock2.getText());
-            try {
-                Ventana6.setVisible(false);
-                JOptionPane.showMessageDialog(null,"Producto agregado correctamente");
-                U.EnviarRegistroProductos();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            if (nombreProducto2.getText().isEmpty() || precioProducto2.getText().isEmpty() || numeroStock2.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null,"Debe llenar todos los campos");
+            }else {
+                U.setNombreProducto(nombreProducto2.getText());
+                U.setPrecioProducto(precioProducto2.getText());
+                U.setNumeroStock(numeroStock2.getText());
+                try {
+                    Ventana6.setVisible(false);
+                    JOptionPane.showMessageDialog(null,"Producto agregado correctamente");
+                    U.EnviarRegistroProductos();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
     }
